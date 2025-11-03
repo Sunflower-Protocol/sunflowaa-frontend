@@ -34,7 +34,7 @@ export default function ResizableNavbar({
     { name: "Pricing", link: "#pricing" },
     { name: "About", link: "#about" },
   ],
-  ctaText = "Get Started",
+  ctaText = "Launch App",
   ctaHref = "#get-started",
   className = "",
 }: ResizableNavbarProps) {
