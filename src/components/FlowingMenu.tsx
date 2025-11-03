@@ -31,6 +31,13 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
 
   const animationDefaults = { duration: 0.6, ease: 'expo' };
 
+  React.useEffect(() => {
+    if (marqueeRef.current && marqueeInnerRef.current) {
+      gsap.set(marqueeRef.current, { y: '101%' });
+      gsap.set(marqueeInnerRef.current, { y: '-101%' });
+    }
+  }, []);
+
   const findClosestEdge = (mouseX: number, mouseY: number, width: number, height: number): 'top' | 'bottom' => {
     const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY, 2);
     const bottomEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY - height, 2);
@@ -53,7 +60,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
     const rect = itemRef.current.getBoundingClientRect();
     const edge = findClosestEdge(ev.clientX - rect.left, ev.clientY - rect.top, rect.width, rect.height);
 
-    const tl = gsap.timeline({ defaults: animationDefaults }) as TimelineMax;
+    const tl = gsap.timeline({ defaults: animationDefaults });
     tl.to(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }).to(marqueeInnerRef.current, {
       y: edge === 'top' ? '101%' : '-101%'
     });
@@ -82,11 +89,11 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
         {text}
       </a>
       <div
-        className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-white translate-y-[101%]"
+        className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-white"
         ref={marqueeRef}
       >
         <div className="h-full w-[200%] flex" ref={marqueeInnerRef}>
-          <div className="flex items-center relative h-full w-[200%] will-change-transform animate-marquee">
+          <div className="flex items-center relative h-full w-[200%] will-change-transform">
             {repeatedMarqueeContent}
           </div>
         </div>
@@ -96,26 +103,3 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
 };
 
 export default FlowingMenu;
-
-// Note: this is also needed
-// /** @type {import('tailwindcss').Config} */
-// export default {
-//   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-//   theme: {
-//     extend: {
-//       translate: {
-//         '101': '101%',
-//       },
-//       keyframes: {
-//         marquee: {
-//           'from': { transform: 'translateX(0%)' },
-//           'to': { transform: 'translateX(-50%)' }
-//         }
-//       },
-//       animation: {
-//         marquee: 'marquee 15s linear infinite'
-//       }
-//     }
-//   },
-//   plugins: [],
-// };
