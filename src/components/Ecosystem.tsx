@@ -18,7 +18,7 @@ const partnerLogos = [
 
 export default function Ecosystem() {
   return (
-    <section className="relative min-h-screen bg-white overflow-hidden">
+    <section className="relative min-h-screen bg-linear-to-br from-blue-50 via-blue-50 to-blue-50 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6">
         <div className="text-center mb-10 flex">
           <h2 className="text-6xl md:text-7xl font-bold text-black">

@@ -1,11 +1,15 @@
-'use client'
-import { useEffect, useRef } from 'react';
-import FlowingMenu from './FlowingMenu';
+"use client";
+import { useEffect, useRef } from "react";
+import FlowingMenu from "./FlowingMenu";
 
 const menuItems = [
-  { link: '#', text: 'Stream Music', image: '/Assets/Logo/music-logo.png' },
-  { link: '#', text: 'Create & Remix', image: '/Assets/Logo/remix-logo.png' },
-  { link: '#', text: 'Monetize Your Music', image: '/Assets/Logo/monetize-logo.png' }
+  { link: "#", text: "Stream Music", image: "/Assets/Logo/music-logo.png" },
+  { link: "#", text: "Create & Remix", image: "/Assets/Logo/remix-logo.png" },
+  {
+    link: "#",
+    text: "Monetize Your Music",
+    image: "/Assets/Logo/monetize-logo.png",
+  },
 ];
 
 export default function FeaturesSection() {
@@ -15,21 +19,20 @@ export default function FeaturesSection() {
   useEffect(() => {
     const section = sectionRef.current;
     const menu = menuRef.current;
-    
+
     if (!section || !menu) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Add a class to trigger animations when section enters viewport
-            menu.classList.add('animate-in');
+            menu.classList.add("animate-in");
           }
         });
       },
       {
-        threshold: 0.3, // Trigger when 30% of the section is visible
-        rootMargin: '0px 0px -100px 0px' // Offset from bottom
+        threshold: 0.3, 
+        rootMargin: "0px 0px -100px 0px",
       }
     );
 
@@ -41,16 +44,20 @@ export default function FeaturesSection() {
   }, []);
 
   return (
-      <section ref={sectionRef} className="h-screen bg-gray-50 flex flex-col justify-center" id="features">
-        <div className="max-w-7xl mx-auto w-full px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
-            Discover amazing music experiences with Sunflowaa
-          </h2>
+    <section
+      ref={sectionRef}
+      className="h-screen bg-linear-to-br from-blue-50 via-blue-50 to-blue-50 flex flex-col justify-center"
+      id="features"
+    >
+      <div className="max-w-7xl mx-auto w-full px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
+          Discover amazing music experiences with Sunflowaa
+        </h2>
 
-          <div ref={menuRef} className="h-[60vh] relative">
-            <FlowingMenu items={menuItems} />
-          </div>
+        <div ref={menuRef} className="h-[60vh] relative">
+          <FlowingMenu items={menuItems} />
         </div>
-      </section>
+      </div>
+    </section>
   );
 }
