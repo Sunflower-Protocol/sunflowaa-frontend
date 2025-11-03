@@ -8,17 +8,17 @@ import rocketAnimation from "../../public/Assets/Animation/rocket-animation.json
 const partnerLogos = [
   {
     name: "Story Protocol",
-    logo: "/Assets/Logo/logo-story.jpg",
+    logo: "/Assets/Logo/logo-story.png",
   },
   {
     name: "IP Token",
-    logo: "/Assets/Logo/logo-ip.png",
+    logo: "/Assets/Logo/logo-ip-token.png",
   },
 ];
 
 export default function Ecosystem() {
   return (
-    <section className="relative min-h-screen bg-linear-to-br from-blue-50 via-blue-50 to-blue-50 overflow-hidden">
+    <section className="bg-linear-to-br from-blue-50 via-blue-50 to-blue-50 overflow-hidden">
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6">
         <div className="text-center mb-10 flex">
           <h2 className="text-6xl md:text-7xl font-bold text-black">
@@ -29,14 +29,14 @@ export default function Ecosystem() {
           </div>
         </div>
 
-        <div className="w-full max-w-7xl">
+        <div className="w-full max-w-5xl">
           <Marquee className="py-8" pauseOnHover>
             {partnerLogos.map((partner, index) => (
               <div
                 key={index}
                 className="flex items-center space-x-4 mx-8 group cursor-pointer"
               >
-                <div className="w-12 h-12 bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Image
                     src={partner.logo}
                     alt={partner.name}
@@ -60,7 +60,7 @@ export default function Ecosystem() {
                 key={index}
                 className="flex items-center space-x-4 mx-8 group cursor-pointer"
               >
-                <div className="w-12 h-12 bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Image
                     src={partner.logo}
                     alt={partner.name}

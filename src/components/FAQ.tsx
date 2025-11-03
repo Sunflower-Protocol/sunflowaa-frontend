@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const faqs = [
   {
@@ -60,33 +61,55 @@ export default function FAQ() {
 
         <div className="space-y-4">
           {faqs.map((faq) => (
-            <div key={faq.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <motion.div 
+              key={faq.id} 
+              className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: faq.id * 0.1 }}
+            >
               <button
                 onClick={() => toggleItem(faq.id)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300"
+                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300 cursor-pointer"
               >
                 <h3 className="text-lg font-semibold text-black pr-4">
                   {faq.question}
                 </h3>
-                <div className={`text-gray-600 transition-transform duration-300 ${
-                  openItems.includes(faq.id) ? 'rotate-180' : ''
-                }`}>
+                <motion.div 
+                  className="text-gray-600"
+                  animate={{ rotate: openItems.includes(faq.id) ? 180 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                </div>
+                </motion.div>
               </button>
               
-              <div className={`overflow-hidden transition-all duration-300 ${
-                openItems.includes(faq.id) ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-              }`}>
-                <div className="px-6 pb-5">
-                  <p className="text-gray-600 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              </div>
-            </div>
+              <AnimatePresence>
+                {openItems.includes(faq.id) && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <motion.div 
+                      className="px-6 pb-5"
+                      initial={{ y: -10 }}
+                      animate={{ y: 0 }}
+                      exit={{ y: -10 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                      <p className="text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
         </div>
 
@@ -96,7 +119,7 @@ export default function FAQ() {
           </p>
           <a 
             href="#" 
-            className="inline-flex items-center text-black font-medium hover:text-gray-700 transition-colors duration-300"
+            className="inline-flex items-center text-black font-medium hover:text-gray-700 transition-colors duration-300 cursor-pointer"
           >
             Contact our support team
             <svg className="w-4 h-4 ml-2" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

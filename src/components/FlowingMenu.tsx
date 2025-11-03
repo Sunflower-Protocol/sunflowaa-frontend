@@ -1,11 +1,13 @@
 'use client'
 import React from 'react';
 import { gsap } from 'gsap';
+import { Play, Shuffle, DollarSign } from 'lucide-react';
 
 interface MenuItemProps {
   link: string;
   text: string;
   image: string;
+  icon?: React.ReactNode;
 }
 
 interface FlowingMenuProps {
@@ -24,7 +26,7 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
   );
 };
 
-const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, icon }) => {
   const itemRef = React.useRef<HTMLDivElement>(null);
   const marqueeRef = React.useRef<HTMLDivElement>(null);
   const marqueeInnerRef = React.useRef<HTMLDivElement>(null);
@@ -86,7 +88,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {text}
+        <span className="flex items-center gap-4">
+          {text}
+          {icon && (
+            <span className="text-[3vh]">
+              {icon}
+            </span>
+          )}
+        </span>
       </a>
       <div
         className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-white"

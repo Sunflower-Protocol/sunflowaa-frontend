@@ -1,14 +1,27 @@
 "use client";
 import { useEffect, useRef } from "react";
 import FlowingMenu from "./FlowingMenu";
+import { Play, Shuffle, DollarSign } from "lucide-react";
+import Image from "next/image";
 
 const menuItems = [
-  { link: "#", text: "Stream Music", image: "/Assets/Logo/music-logo.png" },
-  { link: "#", text: "Create & Remix", image: "/Assets/Logo/remix-logo.png" },
+  {
+    link: "#",
+    text: "Stream Music",
+    image: "/Assets/Logo/music-logo.png",
+    icon: <Play size={32} />,
+  },
+  {
+    link: "#",
+    text: "Create & Remix",
+    image: "/Assets/Logo/remix-logo.png",
+    icon: <Shuffle size={32} />,
+  },
   {
     link: "#",
     text: "Monetize Your Music",
     image: "/Assets/Logo/monetize-logo.png",
+    icon: <DollarSign size={32} />,
   },
 ];
 
@@ -31,7 +44,7 @@ export default function FeaturesSection() {
         });
       },
       {
-        threshold: 0.3, 
+        threshold: 0.3,
         rootMargin: "0px 0px -100px 0px",
       }
     );
@@ -50,8 +63,18 @@ export default function FeaturesSection() {
       id="features"
     >
       <div className="max-w-7xl mx-auto w-full px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center">
-          Discover amazing music experiences with Sunflowaa
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-center flex items-center justify-center gap-3">
+          Discover amazing music experiences with
+          <div className="flex items-center gap-2">
+            <span>Sunflowaa</span>
+            <Image
+              src="/Assets/Logo/sunflowaa.png"
+              alt="Sunflowaa Logo"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain rounded-full"
+            />
+          </div>
         </h2>
 
         <div ref={menuRef} className="h-[60vh] relative">

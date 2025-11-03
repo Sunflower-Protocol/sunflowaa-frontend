@@ -27,11 +27,21 @@ export default function HeroSection() {
               <span className="text-white-300">Create Music</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white max-w-xl mx-auto leading-relaxed mb-8 font-medium">
-              Create, remix, and monetize music in Story Protocol.
+            <p className="text-lg md:text-xl text-white max-w-xl mx-auto leading-relaxed mb-8 font-semibold">
+              Create, remix, and monetize music in{" "}
+              <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/30">
+                <Image
+                  src="/Assets/Logo/logo-story.png"
+                  alt="Story Protocol Logo"
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 object-contain"
+                />
+                <span className="text-white font-semibold">Story Protocol</span>
+              </span>
             </p>
 
-            <button className="bg-black text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
+            <button className="bg-black cursor-pointer text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
               Launch App
             </button>
           </div>
