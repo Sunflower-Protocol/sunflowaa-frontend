@@ -18,7 +18,7 @@ export interface Stem {
 
 export interface StemType {
   type: string;
-  icon: any;
+  icon: unknown;
   color: string;
   description: string;
   emoji: string;
