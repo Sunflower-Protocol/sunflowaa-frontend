@@ -138,7 +138,7 @@ export const Logo = () => {
     >
       <Image
         src={sunflowaaLogo}
-        className="h-8 w-8 shrink-0 rounded-lg"
+        className="h-8 w-8 shrink-0 rounded-full"
         width={32}
         height={32}
         alt="Sunflowaa Logo"

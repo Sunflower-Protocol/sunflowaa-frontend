@@ -66,7 +66,7 @@ const STEM_TYPES = [
     type: "fx",
     icon: BoltIcon,
     color: "green",
-    description: "Sound effects, reverb, and ambient textures",
+    description: "Sound effects",
     emoji: "🎧",
   },
 ] as const;
@@ -198,13 +198,6 @@ export default function Music() {
           <p className="text-gray-600 dark:text-gray-400 mt-2">
             Discover and explore individual music components for your remixes
           </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <MainButton size="lg" className="flex items-center gap-2">
-            <MagnifyingGlassIcon className="h-4 w-4" />
-            Explore All Stems
-          </MainButton>
         </div>
       </div>
 
@@ -417,7 +410,7 @@ export default function Music() {
             <MainButton size="lg" withParticles>
               Upload Stems
             </MainButton>
-            <MainButton variant="pinkOutline" size="lg">
+            <MainButton variant="pinkOutline" size="lg" className="gap-2">
               <AdjustmentsHorizontalIcon className="h-4 w-4" />
               Open Remix Studio
             </MainButton>
