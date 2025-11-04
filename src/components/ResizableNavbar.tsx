@@ -62,7 +62,7 @@ export default function ResizableNavbar({
         </div>
 
         {/* Navigation Items */}
-        <NavItems items={navItems} onItemClick={closeMenu} />
+        {/* <NavItems items={navItems} onItemClick={closeMenu} /> */}
 
         {/* CTA Button */}
         <NavbarButton href={ctaHref} variant="dark">

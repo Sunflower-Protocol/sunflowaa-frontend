@@ -28,7 +28,7 @@ export function SuccessModal({ isVisible, onClose }: SuccessModalProps) {
               stiffness: 300,
               duration: 0.5,
             }}
-            className="bg-white/95 dark:bg-neutral-800/95 rounded-3xl border border-gray-200/50 dark:border-neutral-700/50 p-8 max-w-md w-full text-center backdrop-blur-xl shadow-2xl shadow-black/10 relative"
+            className="bg-white/95 dark:bg-neutral-800/95 rounded-3xl border border-gray-200/50 dark:border-neutral-700/50 p-8 max-w-md w-full text-center backdrop-blur-xl"
           >
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
@@ -43,7 +43,7 @@ export function SuccessModal({ isVisible, onClose }: SuccessModalProps) {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", damping: 15, stiffness: 300 }}
-              className="w-20 h-20 bg-gradient-to-br from-pink-100/80 to-purple-100/80 dark:from-pink-900/40 dark:to-purple-900/40 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm shadow-lg"
+              className="w-20 h-20 bg-linear-to-br from-pink-100/80 to-purple-100/80 dark:from-pink-900/40 dark:to-purple-900/40 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm"
             >
               <span className="text-4xl">✨</span>
             </motion.div>

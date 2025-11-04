@@ -22,10 +22,10 @@ export default function HeroSection() {
 
           <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight tracking-tight">
-              Transform How You
+              Transform Your Music
             </h1>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
-              <span className="text-white-300">Create Music</span>
+              <span className="text-white-300">Into IP</span>
             </h1>
 
             <p className="text-lg md:text-xl text-white max-w-xl mx-auto leading-relaxed mb-8 font-semibold">

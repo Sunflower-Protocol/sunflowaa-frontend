@@ -4,9 +4,12 @@ import {
   ShieldCheckIcon,
   BanknotesIcon,
   ArrowPathIcon,
+  MinusIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
 import { LicenseSetupProps } from "./types";
 import { LICENSE_OPTIONS, ROYALTY_RANGE } from "./constants";
+import ElasticSlider from "../../../ElasticSlider";
 
 export function LicenseSetup({ formData, onUpdate }: LicenseSetupProps) {
   const handleFieldChange = (field: keyof typeof formData, value: unknown) => {
@@ -73,23 +76,22 @@ export function LicenseSetup({ formData, onUpdate }: LicenseSetupProps) {
               </h3>
             </div>
             <div className="space-y-4">
-              <input
-                type="range"
-                min={ROYALTY_RANGE.MIN}
-                max={ROYALTY_RANGE.MAX}
-                value={formData.royaltyPercentage}
-                onChange={(e) =>
-                  handleFieldChange("royaltyPercentage", Number(e.target.value))
-                }
-                className="w-full h-2 bg-gray-200 dark:bg-neutral-600 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-gray-600 dark:[&::-webkit-slider-thumb]:bg-gray-400 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg"
-              />
-              <div className="text-center">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                  {formData.royaltyPercentage}%
-                </span>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  Revenue share
-                </p>
+              <div className="flex justify-center">
+                <ElasticSlider
+                  leftIcon={
+                    <MinusIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                  }
+                  rightIcon={
+                    <PlusIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                  }
+                  startingValue={ROYALTY_RANGE.MIN}
+                  defaultValue={formData.royaltyPercentage}
+                  maxValue={ROYALTY_RANGE.MAX}
+                  isStepped
+                  stepSize={1}
+                  onChange={(value) => handleFieldChange("royaltyPercentage", value)}
+                  className="w-full max-w-sm"
+                />
               </div>
             </div>
           </div>

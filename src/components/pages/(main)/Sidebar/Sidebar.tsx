@@ -77,17 +77,6 @@ export default function MainSidebar() {
             ))}
           </div>
         </div>
-        <div>
-          <SidebarLink
-            link={{
-              label: "Logout",
-              href: "/logout",
-              icon: (
-                <ArrowRightOnRectangleIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-              ),
-            }}
-          />
-        </div>
       </SidebarBody>
     </Sidebar>
   );

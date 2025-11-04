@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { ChartBarIcon, MusicalNoteIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { usdcLogo } from "../../../../../public/Assets";
 import { UserStats } from "./types";
 
 interface ProfileStatsProps {
@@ -11,6 +13,18 @@ interface StatCardProps {
   icon: React.ComponentType<{ className?: string }>;
   value: number | string;
   label: string;
+}
+
+function UsdcIcon({ className }: { className?: string }) {
+  return (
+    <Image 
+      src={usdcLogo} 
+      alt="USDC" 
+      width={32} 
+      height={32} 
+      className={className}
+    />
+  );
 }
 
 function StatCard({ icon: Icon, value, label }: StatCardProps) {
@@ -39,13 +53,13 @@ export function ProfileStats({ stats }: ProfileStatsProps) {
       value: stats.ipAssets,
       label: "IP Assets"
     },
+    // {
+    //   icon: UsersIcon,
+    //   value: stats.totalCollaborations,
+    //   label: "Collaborations"
+    // },
     {
-      icon: UsersIcon,
-      value: stats.totalCollaborations,
-      label: "Collaborations"
-    },
-    {
-      icon: ChartBarIcon,
+      icon: UsdcIcon,
       value: stats.totalRoyalties,
       label: "Total Royalties"
     }
