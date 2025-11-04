@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { MainButton } from "../_components/Button";
 import { Loader } from "lucide-react";
 import {
@@ -13,14 +13,12 @@ import {
   MusicalNoteIcon,
   MicrophoneIcon,
   CurrencyDollarIcon,
-  UsersIcon,
   BoltIcon,
   AdjustmentsHorizontalIcon,
   SparklesIcon,
   XMarkIcon,
   ArrowUpTrayIcon,
   ChartBarIcon,
-  RocketLaunchIcon
 } from "@heroicons/react/24/outline";
 
 interface Stem {
@@ -111,7 +109,6 @@ export default function RemixStudio() {
   const [showPreview, setShowPreview] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
 
-  const waveformRef = useRef<HTMLDivElement>(null);
 
   const filteredStems = MOCK_STEMS.filter(stem => {
     const matchesSearch = stem.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -141,7 +138,7 @@ export default function RemixStudio() {
     setTimelineTracks(prev => prev.filter(track => track.id !== trackId));
   };
 
-  const updateTrackProperty = (trackId: string, property: keyof TimelineTrack, value: any) => {
+  const updateTrackProperty = (trackId: string, property: keyof TimelineTrack, value: unknown) => {
     setTimelineTracks(prev => 
       prev.map(track => 
         track.id === trackId ? { ...track, [property]: value } : track
@@ -458,7 +455,6 @@ export default function RemixStudio() {
         </div>
       </div>
 
-      {/* Preview Success Modal */}
       {showPreview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-purple-200 dark:border-purple-800 p-8 max-w-md w-full text-center">
