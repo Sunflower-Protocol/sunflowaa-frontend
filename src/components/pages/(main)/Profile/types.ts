@@ -17,6 +17,7 @@ export interface UserStats {
   totalCollaborations: number;
   totalRoyalties: number;
   ipAssets: number;
+  unclaimedRoyalties: number;
 }
 
 export interface ProfileEditData extends UserProfile {}

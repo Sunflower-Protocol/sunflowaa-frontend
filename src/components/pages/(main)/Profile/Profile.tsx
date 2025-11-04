@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import { MainButton } from "../_components/Button";
-import { WalletIcon, CheckIcon, HandThumbUpIcon } from "@heroicons/react/24/outline";
+import {
+  WalletIcon,
+  CheckIcon,
+  HandThumbUpIcon,
+} from "@heroicons/react/24/outline";
 import { usdcLogo } from "../../../../../public/Assets";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileInformation } from "./ProfileInformation";
@@ -52,23 +56,33 @@ export default function Profile() {
               </div>
 
               <div className="space-y-6">
-                <ProfileStats stats={profileData.stats} />
-
                 <div className="bg-white/80 dark:bg-neutral-800/80 rounded-3xl border border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                    Your Royalties
+                    Unclaimed Royalties
                   </h3>
                   <div className="space-y-4">
+                    <div className="text-center p-4 bg-gradient-to-br from-gray-50/60 to-gray-100/60 dark:from-neutral-800/40 dark:to-neutral-700/40 rounded-2xl backdrop-blur-sm">
+                      <div className="text-2xl font-bold text-gray-900 dark:text-white flex items-center justify-center gap-2 mb-1">
+                        ${profileData.stats.unclaimedRoyalties}
+                        <Image
+                          src={usdcLogo}
+                          alt="USDC"
+                          width={15}
+                          height={15}
+                          className="h-6 w-6"
+                        />
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        Total Unclaimed
+                      </div>
+                    </div>
                     <MainButton size="sm" className="w-full gap-2">
-                      <WalletIcon className="h-4 w-4" />
-                      Connect Wallet
-                    </MainButton>
-                    <MainButton size="sm" className="w-full gap-2" variant="outline">
-                      <Image src={usdcLogo} alt="USDC" width={16} height={16} className="h-4 w-4" />
+                      {/* <Image src={usdcLogo} alt="USDC" width={16} height={16} className="h-4 w-4" /> */}
                       Claim Royalties
                     </MainButton>
                   </div>
                 </div>
+                <ProfileStats stats={profileData.stats} />
               </div>
             </div>
           </div>

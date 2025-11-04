@@ -16,5 +16,6 @@ export const DEFAULT_PROFILE: UserProfile = {
     totalCollaborations: 18,
     totalRoyalties: 1250.5,
     ipAssets: 15,
+    unclaimedRoyalties: 487.25,
   },
 };

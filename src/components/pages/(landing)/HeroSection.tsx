@@ -42,7 +42,7 @@ export default function HeroSection() {
               </span>
             </p>
 
-            <Link href="/app">
+            <Link href="/app" target="_blank" rel="noopener noreferrer">
               <button className="bg-black cursor-pointer text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
                 Launch App
               </button>

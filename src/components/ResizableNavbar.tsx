@@ -56,7 +56,7 @@ export default function ResizableNavbar({
             height={32}
             className="w-8 h-8 rounded-full"
           />
-          <div className="text-xl font-bold text-gray-800 tracking-tight">
+          <div className="text-md font-semibold text-gray-800 tracking-tight">
             {logo}
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function ResizableNavbar({
         {/* <NavItems items={navItems} onItemClick={closeMenu} /> */}
 
         {/* CTA Button */}
-        <NavbarButton href={ctaHref} variant="dark">
+        <NavbarButton href={ctaHref} variant="dark" target="_blank" rel="noopener noreferrer">
           {ctaText}
         </NavbarButton>
       </NavBody>

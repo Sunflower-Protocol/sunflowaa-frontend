@@ -28,11 +28,20 @@ function UsdcIcon({ className }: { className?: string }) {
 }
 
 function StatCard({ icon: Icon, value, label }: StatCardProps) {
+  const isRoyalties = label === 'Total Royalties';
+  
   return (
     <div className="text-center p-4 bg-gradient-to-br from-gray-50/60 to-gray-100/60 dark:from-neutral-800/40 dark:to-neutral-700/40 rounded-2xl backdrop-blur-sm">
-      <Icon className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
+      {!isRoyalties && <Icon className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto mb-2" />}
       <div className="text-2xl font-bold text-gray-900 dark:text-white">
-        {typeof value === 'number' && label === 'Total Royalties' ? `$${value}` : value}
+        {isRoyalties ? (
+          <div className="flex items-center justify-center gap-2">
+            <span>${value}</span>
+            <Image src={usdcLogo} alt="USDC" width={24} height={24} className="h-6 w-6" />
+          </div>
+        ) : (
+          value
+        )}
       </div>
       <div className="text-sm text-gray-600 dark:text-gray-400">
         {label}
