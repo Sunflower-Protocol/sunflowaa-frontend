@@ -1,112 +1,43 @@
 "use client";
 
-import { useState } from "react";
-import { MainButton } from "../_components/Button";
-import { Loader } from "lucide-react";
-import {
-  PlayIcon,
-  PauseIcon,
-  StopIcon,
-  SpeakerWaveIcon,
-  ArrowPathIcon,
-  MagnifyingGlassIcon,
-  MusicalNoteIcon,
-  MicrophoneIcon,
-  CurrencyDollarIcon,
-  BoltIcon,
-  SparklesIcon,
-  XMarkIcon,
-  ArrowUpTrayIcon,
-  ChartBarIcon,
-} from "@heroicons/react/24/outline";
-
-interface Stem {
-  id: string;
-  name: string;
-  artist: string;
-  type: "vocals" | "drums" | "bass" | "synth" | "fx";
-  duration: number;
-  bpm: number;
-  key: string;
-  license: {
-    type: string;
-    royalty: number;
-    creator: string;
-  };
-  ipAssetId: string;
-  waveform: number[];
-}
-
-interface TimelineTrack {
-  id: string;
-  stem: Stem;
-  startTime: number;
-  volume: number;
-  muted: boolean;
-  solo: boolean;
-}
-
-const STEM_TYPES = [
-  { type: "vocals", icon: MicrophoneIcon, color: "pink" },
-  { type: "drums", icon: MusicalNoteIcon, color: "red" },
-  { type: "bass", icon: MusicalNoteIcon, color: "blue" },
-  { type: "synth", icon: MusicalNoteIcon, color: "purple" },
-  { type: "fx", icon: BoltIcon, color: "green" },
-] as const;
-
-const MOCK_STEMS: Stem[] = [
-  {
-    id: "stem_1",
-    name: "Smooth Vocals",
-    artist: "@Loren",
-    type: "vocals",
-    duration: 45,
-    bpm: 120,
-    key: "C",
-    license: { type: "Commercial", royalty: 10, creator: "@Loren" },
-    ipAssetId: "ip_abc123",
-    waveform: Array.from({ length: 100 }, () => Math.random() * 100),
-  },
-  {
-    id: "stem_2",
-    name: "Deep Bass Line",
-    artist: "@BassMaster",
-    type: "bass",
-    duration: 60,
-    bpm: 120,
-    key: "C",
-    license: { type: "Non-Commercial", royalty: 5, creator: "@BassMaster" },
-    ipAssetId: "ip_def456",
-    waveform: Array.from({ length: 100 }, () => Math.random() * 80),
-  },
-  {
-    id: "stem_3",
-    name: "Crisp Drums",
-    artist: "@DrumKing",
-    type: "drums",
-    duration: 30,
-    bpm: 120,
-    key: "C",
-    license: { type: "Commercial", royalty: 8, creator: "@DrumKing" },
-    ipAssetId: "ip_ghi789",
-    waveform: Array.from({ length: 100 }, () => Math.random() * 120),
-  },
-];
+import { StudioHeader } from "./StudioHeader";
+import { StemLibrary } from "./StemLibrary";
+import { TransportControls } from "./TransportControls";
+import { Timeline } from "./Timeline";
+import { SuccessModal } from "./SuccessModal";
+import { useRemixStudio } from "./hooks/useRemixStudio";
+import { MOCK_STEMS } from "./constants";
 
 export default function RemixStudio() {
-  const [selectedStems, setSelectedStems] = useState<Stem[]>([]);
-  const [timelineTracks, setTimelineTracks] = useState<TimelineTrack[]>([]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(60);
-  const [volume, setVolume] = useState(80);
-  const [tempo, setTempo] = useState(120);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState<string>("all");
-  const [isLooping, setIsLooping] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-  const [isMinting, setIsMinting] = useState(false);
+  const {
+    timelineTracks,
+    isPlaying,
+    currentTime,
+    duration,
+    volume,
+    tempo,
+    searchQuery,
+    selectedType,
+    isLooping,
+    isRecording,
+    showPreview,
+    isMinting,
+    totalRoyalty,
+    canMint,
+    addStemToTimeline,
+    updateTrackProperty,
+    removeTrackFromTimeline,
+    handleMint,
+    handlePlayPause,
+    handleStop,
+    handleRecord,
+    handleLoop,
+    handleVolumeChange,
+    handleTempoChange,
+    handleSearchChange,
+    handleTypeChange,
+    closeSuccessModal,
+  } = useRemixStudio();
 
   const filteredStems = MOCK_STEMS.filter((stem) => {
     const matchesSearch =
@@ -116,421 +47,51 @@ export default function RemixStudio() {
     return matchesSearch && matchesType;
   });
 
-  const totalRoyalty = timelineTracks.reduce((total, track) => {
-    return total + track.stem.license.royalty;
-  }, 0);
-
-  const addStemToTimeline = (stem: Stem) => {
-    const newTrack: TimelineTrack = {
-      // eslint-disable-next-line react-hooks/purity
-      id: `track_${Date.now()}`,
-      stem,
-      startTime: 0,
-      volume: 80,
-      muted: false,
-      solo: false,
-    };
-    setTimelineTracks((prev) => [...prev, newTrack]);
-  };
-
-  const removeTrackFromTimeline = (trackId: string) => {
-    setTimelineTracks((prev) => prev.filter((track) => track.id !== trackId));
-  };
-
-  const updateTrackProperty = (
-    trackId: string,
-    property: keyof TimelineTrack,
-    value: unknown
-  ) => {
-    setTimelineTracks((prev) =>
-      prev.map((track) =>
-        track.id === trackId ? { ...track, [property]: value } : track
-      )
-    );
-  };
-
-  const handleMint = async () => {
-    setIsMinting(true);
-    setTimeout(() => {
-      setIsMinting(false);
-      setShowPreview(true);
-    }, 3000);
-  };
-
   return (
     <main className="h-screen flex flex-col bg-gray-50/80 dark:bg-neutral-900/80">
-      <div className="bg-white/80 dark:bg-neutral-800/80 border-b border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-gray-100/60 to-gray-200/60 dark:from-neutral-700/60 dark:to-neutral-800/60 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-              <MusicalNoteIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Remix Studio
-              </h1>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-4 py-2 bg-gray-100/70 dark:bg-neutral-700/70 rounded-2xl text-sm backdrop-blur-sm">
-              <CurrencyDollarIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-              <span className="text-gray-700 dark:text-gray-300 font-medium">
-                Total Royalty: {totalRoyalty}%
-              </span>
-            </div>
-            <MainButton
-              onClick={handleMint}
-              disabled={timelineTracks.length === 0 || isMinting}
-              size="lg"
-              withParticles
-            >
-              {isMinting ? (
-                <>
-                  <Loader className="h-4 w-4 animate-spin" />
-                  Minting...
-                </>
-              ) : (
-                <>
-                  <SparklesIcon className="h-4 w-4" />
-                  Mint as Remix
-                </>
-              )}
-            </MainButton>
-          </div>
-        </div>
-      </div>
+      <StudioHeader
+        totalRoyalty={totalRoyalty}
+        isMinting={isMinting}
+        canMint={canMint}
+        onMint={handleMint}
+      />
 
       <div className="flex flex-1 overflow-hidden">
-        <div className="w-80 bg-white/80 dark:bg-neutral-800/80 border-r border-gray-200/40 dark:border-neutral-700/40 flex flex-col backdrop-blur-md">
-          <div className="p-6 border-b border-gray-200/40 dark:border-neutral-700/40">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-              <MusicalNoteIcon className="h-5 w-5" />
-              Stem Library
-            </h2>
-
-            <div className="space-y-3">
-              <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search stems..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
-                />
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => setSelectedType("all")}
-                  className={`px-3 py-2 rounded-full text-xs font-medium transition-colors ${
-                    selectedType === "all"
-                      ? "bg-gray-100/80 text-gray-700 border border-gray-300/50 dark:bg-neutral-700/50 dark:border-neutral-600/50 dark:text-neutral-300"
-                      : "bg-gray-100/60 text-gray-600 hover:bg-gray-100/80 border border-transparent dark:bg-neutral-700/40 dark:text-gray-400 dark:hover:bg-neutral-700/60"
-                  }`}
-                >
-                  All
-                </button>
-                {STEM_TYPES.map(({ type, icon: Icon }) => (
-                  <button
-                    key={type}
-                    onClick={() => setSelectedType(type)}
-                    className={`px-3 py-2 rounded-full text-xs font-medium flex items-center gap-1 transition-colors ${
-                      selectedType === type
-                        ? "bg-gray-100/80 text-gray-700 border border-gray-300/50 dark:bg-neutral-700/50 dark:border-neutral-600/50 dark:text-neutral-300"
-                        : "bg-gray-100/60 text-gray-600 hover:bg-gray-100/80 border border-transparent dark:bg-neutral-700/40 dark:text-gray-400 dark:hover:bg-neutral-700/60"
-                    }`}
-                  >
-                    <Icon className="h-3 w-3" />
-                    {type}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {filteredStems.map((stem) => {
-              const stemType = STEM_TYPES.find((t) => t.type === stem.type);
-              const Icon = stemType?.icon || MusicalNoteIcon;
-
-              return (
-                <div
-                  key={stem.id}
-                  className="cursor-pointer bg-white/70 dark:bg-neutral-700/70 rounded-3xl p-4 border border-gray-200/30 dark:border-neutral-700/30 hover:border-gray-300/50 dark:hover:border-neutral-600/50 transition-all hover:shadow-lg hover:shadow-gray-200/20 dark:hover:shadow-neutral-900/20 hover:bg-white/90 dark:hover:bg-neutral-700/90 backdrop-blur-md"
-                  onClick={() => addStemToTimeline(stem)}
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <Icon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-white text-sm">
-                          {stem.name}
-                        </div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400">
-                          {stem.artist}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {stem.duration}s
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-                      <span>{stem.bpm} BPM</span>
-                      <span>Key: {stem.key}</span>
-                    </div>
-                    <div className="px-3 py-1 bg-gray-100/70 dark:bg-neutral-600/70 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium backdrop-blur-sm">
-                      {stem.license.royalty}% royalty
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <StemLibrary
+          stems={filteredStems}
+          searchQuery={searchQuery}
+          selectedType={selectedType}
+          onSearchChange={handleSearchChange}
+          onTypeChange={handleTypeChange}
+          onStemSelect={addStemToTimeline}
+        />
 
         <div className="flex-1 flex flex-col">
-          <div className="bg-white/80 dark:bg-neutral-800/80 border-b border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    className="w-12 h-12 bg-gray-600/80 hover:bg-gray-700/90 text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105 backdrop-blur-sm"
-                  >
-                    {isPlaying ? (
-                      <PauseIcon className="h-5 w-5" />
-                    ) : (
-                      <PlayIcon className="h-5 w-5 ml-0.5" />
-                    )}
-                  </button>
+          <TransportControls
+            isPlaying={isPlaying}
+            isRecording={isRecording}
+            isLooping={isLooping}
+            volume={volume}
+            tempo={tempo}
+            currentTime={currentTime}
+            duration={duration}
+            onPlayPause={handlePlayPause}
+            onStop={handleStop}
+            onRecord={handleRecord}
+            onLoop={handleLoop}
+            onVolumeChange={handleVolumeChange}
+            onTempoChange={handleTempoChange}
+          />
 
-                  <button
-                    onClick={() => setCurrentTime(0)}
-                    className="w-10 h-10 bg-gray-100/80 dark:bg-neutral-700/80 hover:bg-gray-200/80 dark:hover:bg-neutral-600/80 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center transition-all hover:scale-105 backdrop-blur-sm"
-                  >
-                    <StopIcon className="h-4 w-4" />
-                  </button>
-
-                  <button
-                    onClick={() => setIsRecording(!isRecording)}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105 backdrop-blur-sm ${
-                      isRecording
-                        ? "bg-red-600/90 text-white shadow-lg"
-                        : "bg-gray-100/80 dark:bg-neutral-700/80 hover:bg-gray-200/80 dark:hover:bg-neutral-600/80 text-gray-700 dark:text-gray-300"
-                    }`}
-                  >
-                    <div className="w-3 h-3 bg-current rounded-full"></div>
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <SpeakerWaveIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      value={volume}
-                      onChange={(e) => setVolume(Number(e.target.value))}
-                      className="w-24 h-2 bg-gray-200/60 dark:bg-neutral-600/60 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-gray-600 dark:[&::-webkit-slider-thumb]:bg-gray-400 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg"
-                    />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 w-8">
-                      {volume}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
-                      BPM:
-                    </span>
-                    <input
-                      type="number"
-                      min="60"
-                      max="200"
-                      value={tempo}
-                      onChange={(e) => setTempo(Number(e.target.value))}
-                      className="w-16 px-3 py-2 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
-                    />
-                  </div>
-
-                  <button
-                    onClick={() => setIsLooping(!isLooping)}
-                    className={`p-2 rounded transition-colors ${
-                      isLooping
-                        ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-                        : "bg-gray-100 text-gray-600 dark:bg-neutral-700 dark:text-gray-400"
-                    }`}
-                  >
-                    <ArrowPathIcon className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                {Math.floor(currentTime / 60)}:
-                {(currentTime % 60).toString().padStart(2, "0")} /{" "}
-                {Math.floor(duration / 60)}:
-                {(duration % 60).toString().padStart(2, "0")}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex-1 overflow-auto p-4">
-            <div className="space-y-4">
-              {timelineTracks.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-gray-200 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <MusicalNoteIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Drag stems from the library to start creating your remix
-                  </p>
-                </div>
-              ) : (
-                timelineTracks.map((track) => {
-                  const Icon =
-                    STEM_TYPES.find((t) => t.type === track.stem.type)?.icon ||
-                    MusicalNoteIcon;
-
-                  return (
-                    <div
-                      key={track.id}
-                      className="bg-white dark:bg-neutral-800 rounded-lg border border-gray-200 dark:border-neutral-700 p-4"
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <Icon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-                          <div>
-                            <div className="font-medium text-gray-900 dark:text-white">
-                              {track.stem.name}
-                            </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
-                              {track.stem.artist}
-                            </div>
-                          </div>
-                          <div className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-xs">
-                            {track.stem.license.royalty}% to{" "}
-                            {track.stem.license.creator}
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() =>
-                              updateTrackProperty(
-                                track.id,
-                                "muted",
-                                !track.muted
-                              )
-                            }
-                            className={`px-3 py-1 rounded text-xs font-medium ${
-                              track.muted
-                                ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
-                                : "bg-gray-100 text-gray-600 dark:bg-neutral-700 dark:text-gray-400"
-                            }`}
-                          >
-                            {track.muted ? "Muted" : "Mute"}
-                          </button>
-
-                          <button
-                            onClick={() =>
-                              updateTrackProperty(track.id, "solo", !track.solo)
-                            }
-                            className={`px-3 py-1 rounded text-xs font-medium ${
-                              track.solo
-                                ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
-                                : "bg-gray-100 text-gray-600 dark:bg-neutral-700 dark:text-gray-400"
-                            }`}
-                          >
-                            {track.solo ? "Solo" : "Solo"}
-                          </button>
-
-                          <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            value={track.volume}
-                            onChange={(e) =>
-                              updateTrackProperty(
-                                track.id,
-                                "volume",
-                                Number(e.target.value)
-                              )
-                            }
-                            className="w-16"
-                          />
-
-                          <button
-                            onClick={() => removeTrackFromTimeline(track.id)}
-                            className="p-1 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
-                          >
-                            <XMarkIcon className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="h-16 bg-gray-50 dark:bg-neutral-700 rounded flex items-end gap-0.5 px-2 overflow-hidden">
-                        {track.stem.waveform.map((height, index) => (
-                          <div
-                            key={index}
-                            className="bg-purple-400 dark:bg-purple-500 rounded-t"
-                            style={{
-                              height: `${(height / 100) * 100}%`,
-                              width: "2px",
-                              minHeight: "2px",
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </div>
+          <Timeline
+            tracks={timelineTracks}
+            onTrackUpdate={updateTrackProperty}
+            onTrackRemove={removeTrackFromTimeline}
+          />
         </div>
       </div>
 
-      {showPreview && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-purple-200 dark:border-purple-800 p-8 max-w-md w-full text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center mx-auto mb-6">
-              <SparklesIcon className="h-10 w-10 text-purple-600 dark:text-purple-400" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-              Remix Created Successfully!
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Your remix has been minted as a new IP Asset on Story Protocol
-            </p>
-            <div className="space-y-3">
-              <MainButton
-                onClick={() => setShowPreview(false)}
-                size="lg"
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-                withParticles
-              >
-                <ChartBarIcon className="h-4 w-4" />
-                View in Dashboard
-              </MainButton>
-              <MainButton
-                onClick={() => setShowPreview(false)}
-                variant="outline"
-                size="lg"
-                className="w-full"
-              >
-                <ArrowUpTrayIcon className="h-4 w-4" />
-                Share Remix
-              </MainButton>
-            </div>
-          </div>
-        </div>
-      )}
+      <SuccessModal isVisible={showPreview} onClose={closeSuccessModal} />
     </main>
   );
 }
