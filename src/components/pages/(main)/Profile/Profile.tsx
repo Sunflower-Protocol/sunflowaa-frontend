@@ -59,11 +59,11 @@ export default function Profile() {
                     Your Royalties
                   </h3>
                   <div className="space-y-4">
-                    <MainButton size="sm" className="w-full gap-2" withParticles>
+                    <MainButton size="sm" className="w-full gap-2">
                       <WalletIcon className="h-4 w-4" />
                       Connect Wallet
                     </MainButton>
-                    <MainButton size="sm" className="w-full gap-2" variant="outline" withParticles>
+                    <MainButton size="sm" className="w-full gap-2" variant="outline">
                       <Image src={usdcLogo} alt="USDC" width={16} height={16} className="h-4 w-4" />
                       Claim Royalties
                     </MainButton>
