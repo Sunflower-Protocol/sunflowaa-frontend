@@ -14,7 +14,6 @@ import {
   MicrophoneIcon,
   CurrencyDollarIcon,
   BoltIcon,
-  AdjustmentsHorizontalIcon,
   SparklesIcon,
   XMarkIcon,
   ArrowUpTrayIcon,
@@ -52,7 +51,7 @@ const STEM_TYPES = [
   { type: "drums", icon: MusicalNoteIcon, color: "red" },
   { type: "bass", icon: MusicalNoteIcon, color: "blue" },
   { type: "synth", icon: MusicalNoteIcon, color: "purple" },
-  { type: "fx", icon: BoltIcon, color: "green" }
+  { type: "fx", icon: BoltIcon, color: "green" },
 ] as const;
 
 const MOCK_STEMS: Stem[] = [
@@ -66,7 +65,7 @@ const MOCK_STEMS: Stem[] = [
     key: "C",
     license: { type: "Commercial", royalty: 10, creator: "@Loren" },
     ipAssetId: "ip_abc123",
-    waveform: Array.from({ length: 100 }, () => Math.random() * 100)
+    waveform: Array.from({ length: 100 }, () => Math.random() * 100),
   },
   {
     id: "stem_2",
@@ -78,7 +77,7 @@ const MOCK_STEMS: Stem[] = [
     key: "C",
     license: { type: "Non-Commercial", royalty: 5, creator: "@BassMaster" },
     ipAssetId: "ip_def456",
-    waveform: Array.from({ length: 100 }, () => Math.random() * 80)
+    waveform: Array.from({ length: 100 }, () => Math.random() * 80),
   },
   {
     id: "stem_3",
@@ -90,8 +89,8 @@ const MOCK_STEMS: Stem[] = [
     key: "C",
     license: { type: "Commercial", royalty: 8, creator: "@DrumKing" },
     ipAssetId: "ip_ghi789",
-    waveform: Array.from({ length: 100 }, () => Math.random() * 120)
-  }
+    waveform: Array.from({ length: 100 }, () => Math.random() * 120),
+  },
 ];
 
 export default function RemixStudio() {
@@ -109,10 +108,10 @@ export default function RemixStudio() {
   const [showPreview, setShowPreview] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
 
-
-  const filteredStems = MOCK_STEMS.filter(stem => {
-    const matchesSearch = stem.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         stem.artist.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredStems = MOCK_STEMS.filter((stem) => {
+    const matchesSearch =
+      stem.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      stem.artist.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = selectedType === "all" || stem.type === selectedType;
     return matchesSearch && matchesType;
   });
@@ -129,18 +128,22 @@ export default function RemixStudio() {
       startTime: 0,
       volume: 80,
       muted: false,
-      solo: false
+      solo: false,
     };
-    setTimelineTracks(prev => [...prev, newTrack]);
+    setTimelineTracks((prev) => [...prev, newTrack]);
   };
 
   const removeTrackFromTimeline = (trackId: string) => {
-    setTimelineTracks(prev => prev.filter(track => track.id !== trackId));
+    setTimelineTracks((prev) => prev.filter((track) => track.id !== trackId));
   };
 
-  const updateTrackProperty = (trackId: string, property: keyof TimelineTrack, value: unknown) => {
-    setTimelineTracks(prev => 
-      prev.map(track => 
+  const updateTrackProperty = (
+    trackId: string,
+    property: keyof TimelineTrack,
+    value: unknown
+  ) => {
+    setTimelineTracks((prev) =>
+      prev.map((track) =>
         track.id === trackId ? { ...track, [property]: value } : track
       )
     );
@@ -155,29 +158,32 @@ export default function RemixStudio() {
   };
 
   return (
-    <main className="h-screen flex flex-col bg-gray-50 dark:bg-neutral-900">
-      <div className="bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-neutral-700 p-4">
+    <main className="h-screen flex flex-col bg-gray-50/80 dark:bg-neutral-900/80">
+      <div className="bg-white/80 dark:bg-neutral-800/80 border-b border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center">
-              <AdjustmentsHorizontalIcon className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-gray-100/60 to-gray-200/60 dark:from-neutral-700/60 dark:to-neutral-800/60 rounded-3xl flex items-center justify-center backdrop-blur-sm">
+              <MusicalNoteIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">Remix Studio</h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Create → Preview → Mint</p>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Remix Studio
+              </h1>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full text-sm">
-              <CurrencyDollarIcon className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-              <span className="text-purple-700 dark:text-purple-300">Total Royalty: {totalRoyalty}%</span>
+            <div className="flex items-center gap-2 px-4 py-2 bg-gray-100/70 dark:bg-neutral-700/70 rounded-2xl text-sm backdrop-blur-sm">
+              <CurrencyDollarIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+              <span className="text-gray-700 dark:text-gray-300 font-medium">
+                Total Royalty: {totalRoyalty}%
+              </span>
             </div>
             <MainButton
               onClick={handleMint}
               disabled={timelineTracks.length === 0 || isMinting}
-              size="sm"
-              className="bg-purple-600 hover:bg-purple-700 text-white"
+              size="lg"
+              withParticles
             >
               {isMinting ? (
                 <>
@@ -186,7 +192,7 @@ export default function RemixStudio() {
                 </>
               ) : (
                 <>
-<SparklesIcon className="h-4 w-4" />
+                  <SparklesIcon className="h-4 w-4" />
                   Mint as Remix
                 </>
               )}
@@ -196,13 +202,13 @@ export default function RemixStudio() {
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        <div className="w-80 bg-white dark:bg-neutral-800 border-r border-gray-200 dark:border-neutral-700 flex flex-col">
-          <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+        <div className="w-80 bg-white/80 dark:bg-neutral-800/80 border-r border-gray-200/40 dark:border-neutral-700/40 flex flex-col backdrop-blur-md">
+          <div className="p-6 border-b border-gray-200/40 dark:border-neutral-700/40">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
               <MusicalNoteIcon className="h-5 w-5" />
               Stem Library
             </h2>
-            
+
             <div className="space-y-3">
               <div className="relative">
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -211,17 +217,17 @@ export default function RemixStudio() {
                   placeholder="Search stems..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
                 />
               </div>
-              
+
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedType("all")}
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  className={`px-3 py-2 rounded-full text-xs font-medium transition-colors ${
                     selectedType === "all"
-                      ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-                      : "bg-gray-100 text-gray-600 dark:bg-neutral-700 dark:text-gray-400"
+                      ? "bg-gray-100/80 text-gray-700 border border-gray-300/50 dark:bg-neutral-700/50 dark:border-neutral-600/50 dark:text-neutral-300"
+                      : "bg-gray-100/60 text-gray-600 hover:bg-gray-100/80 border border-transparent dark:bg-neutral-700/40 dark:text-gray-400 dark:hover:bg-neutral-700/60"
                   }`}
                 >
                   All
@@ -230,10 +236,10 @@ export default function RemixStudio() {
                   <button
                     key={type}
                     onClick={() => setSelectedType(type)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${
+                    className={`px-3 py-2 rounded-full text-xs font-medium flex items-center gap-1 transition-colors ${
                       selectedType === type
-                        ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
-                        : "bg-gray-100 text-gray-600 dark:bg-neutral-700 dark:text-gray-400"
+                        ? "bg-gray-100/80 text-gray-700 border border-gray-300/50 dark:bg-neutral-700/50 dark:border-neutral-600/50 dark:text-neutral-300"
+                        : "bg-gray-100/60 text-gray-600 hover:bg-gray-100/80 border border-transparent dark:bg-neutral-700/40 dark:text-gray-400 dark:hover:bg-neutral-700/60"
                     }`}
                   >
                     <Icon className="h-3 w-3" />
@@ -244,34 +250,40 @@ export default function RemixStudio() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {filteredStems.map((stem) => {
-              const stemType = STEM_TYPES.find(t => t.type === stem.type);
+              const stemType = STEM_TYPES.find((t) => t.type === stem.type);
               const Icon = stemType?.icon || MusicalNoteIcon;
-              
+
               return (
                 <div
                   key={stem.id}
-                  className="bg-gray-50 dark:bg-neutral-700 rounded-lg p-3 border border-gray-200 dark:border-neutral-600 hover:border-purple-300 dark:hover:border-purple-600 transition-colors cursor-pointer"
+                  className="cursor-pointer bg-white/70 dark:bg-neutral-700/70 rounded-3xl p-4 border border-gray-200/30 dark:border-neutral-700/30 hover:border-gray-300/50 dark:hover:border-neutral-600/50 transition-all hover:shadow-lg hover:shadow-gray-200/20 dark:hover:shadow-neutral-900/20 hover:bg-white/90 dark:hover:bg-neutral-700/90 backdrop-blur-md"
                   onClick={() => addStemToTimeline(stem)}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <Icon className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                    <div className="flex items-center gap-3">
+                      <Icon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                       <div>
-                        <div className="font-medium text-gray-900 dark:text-white text-sm">{stem.name}</div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400">{stem.artist}</div>
+                        <div className="font-medium text-gray-900 dark:text-white text-sm">
+                          {stem.name}
+                        </div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">
+                          {stem.artist}
+                        </div>
                       </div>
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{stem.duration}s</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      {stem.duration}s
+                    </div>
                   </div>
-                  
+
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
                       <span>{stem.bpm} BPM</span>
                       <span>Key: {stem.key}</span>
                     </div>
-                    <div className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded">
+                    <div className="px-3 py-1 bg-gray-100/70 dark:bg-neutral-600/70 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium backdrop-blur-sm">
                       {stem.license.royalty}% royalty
                     </div>
                   </div>
@@ -282,30 +294,34 @@ export default function RemixStudio() {
         </div>
 
         <div className="flex-1 flex flex-col">
-          <div className="bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-neutral-700 p-4">
+          <div className="bg-white/80 dark:bg-neutral-800/80 border-b border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setIsPlaying(!isPlaying)}
-                    className="w-10 h-10 bg-purple-600 hover:bg-purple-700 text-white rounded-full flex items-center justify-center transition-colors"
+                    className="w-12 h-12 bg-gray-600/80 hover:bg-gray-700/90 text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105 backdrop-blur-sm"
                   >
-                    {isPlaying ? <PauseIcon className="h-5 w-5" /> : <PlayIcon className="h-5 w-5 ml-0.5" />}
+                    {isPlaying ? (
+                      <PauseIcon className="h-5 w-5" />
+                    ) : (
+                      <PlayIcon className="h-5 w-5 ml-0.5" />
+                    )}
                   </button>
-                  
+
                   <button
                     onClick={() => setCurrentTime(0)}
-                    className="w-8 h-8 bg-gray-200 dark:bg-neutral-700 hover:bg-gray-300 dark:hover:bg-neutral-600 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center transition-colors"
+                    className="w-10 h-10 bg-gray-100/80 dark:bg-neutral-700/80 hover:bg-gray-200/80 dark:hover:bg-neutral-600/80 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center transition-all hover:scale-105 backdrop-blur-sm"
                   >
                     <StopIcon className="h-4 w-4" />
                   </button>
-                  
+
                   <button
                     onClick={() => setIsRecording(!isRecording)}
-                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-                      isRecording 
-                        ? "bg-red-600 text-white" 
-                        : "bg-gray-200 dark:bg-neutral-700 hover:bg-gray-300 dark:hover:bg-neutral-600 text-gray-700 dark:text-gray-300"
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105 backdrop-blur-sm ${
+                      isRecording
+                        ? "bg-red-600/90 text-white shadow-lg"
+                        : "bg-gray-100/80 dark:bg-neutral-700/80 hover:bg-gray-200/80 dark:hover:bg-neutral-600/80 text-gray-700 dark:text-gray-300"
                     }`}
                   >
                     <div className="w-3 h-3 bg-current rounded-full"></div>
@@ -321,23 +337,27 @@ export default function RemixStudio() {
                       max="100"
                       value={volume}
                       onChange={(e) => setVolume(Number(e.target.value))}
-                      className="w-20"
+                      className="w-24 h-2 bg-gray-200/60 dark:bg-neutral-600/60 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-gray-600 dark:[&::-webkit-slider-thumb]:bg-gray-400 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg"
                     />
-                    <span className="text-sm text-gray-600 dark:text-gray-400 w-8">{volume}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 w-8">
+                      {volume}
+                    </span>
                   </div>
-                  
+
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">BPM:</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      BPM:
+                    </span>
                     <input
                       type="number"
                       min="60"
                       max="200"
                       value={tempo}
                       onChange={(e) => setTempo(Number(e.target.value))}
-                      className="w-16 px-2 py-1 border border-gray-300 dark:border-neutral-600 rounded bg-white dark:bg-neutral-700 text-gray-900 dark:text-white text-sm"
+                      className="w-16 px-3 py-2 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
                     />
                   </div>
-                  
+
                   <button
                     onClick={() => setIsLooping(!isLooping)}
                     className={`p-2 rounded transition-colors ${
@@ -352,7 +372,10 @@ export default function RemixStudio() {
               </div>
 
               <div className="text-sm text-gray-600 dark:text-gray-400">
-                {Math.floor(currentTime / 60)}:{(currentTime % 60).toString().padStart(2, '0')} / {Math.floor(duration / 60)}:{(duration % 60).toString().padStart(2, '0')}
+                {Math.floor(currentTime / 60)}:
+                {(currentTime % 60).toString().padStart(2, "0")} /{" "}
+                {Math.floor(duration / 60)}:
+                {(duration % 60).toString().padStart(2, "0")}
               </div>
             </div>
           </div>
@@ -364,29 +387,47 @@ export default function RemixStudio() {
                   <div className="w-16 h-16 bg-gray-200 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
                     <MusicalNoteIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400">Drag stems from the library to start creating your remix</p>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    Drag stems from the library to start creating your remix
+                  </p>
                 </div>
               ) : (
                 timelineTracks.map((track) => {
-                  const Icon = STEM_TYPES.find(t => t.type === track.stem.type)?.icon || MusicalNoteIcon;
-                  
+                  const Icon =
+                    STEM_TYPES.find((t) => t.type === track.stem.type)?.icon ||
+                    MusicalNoteIcon;
+
                   return (
-                    <div key={track.id} className="bg-white dark:bg-neutral-800 rounded-lg border border-gray-200 dark:border-neutral-700 p-4">
+                    <div
+                      key={track.id}
+                      className="bg-white dark:bg-neutral-800 rounded-lg border border-gray-200 dark:border-neutral-700 p-4"
+                    >
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-3">
                           <Icon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-white">{track.stem.name}</div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400">{track.stem.artist}</div>
+                            <div className="font-medium text-gray-900 dark:text-white">
+                              {track.stem.name}
+                            </div>
+                            <div className="text-sm text-gray-600 dark:text-gray-400">
+                              {track.stem.artist}
+                            </div>
                           </div>
                           <div className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-xs">
-                            {track.stem.license.royalty}% to {track.stem.license.creator}
+                            {track.stem.license.royalty}% to{" "}
+                            {track.stem.license.creator}
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => updateTrackProperty(track.id, 'muted', !track.muted)}
+                            onClick={() =>
+                              updateTrackProperty(
+                                track.id,
+                                "muted",
+                                !track.muted
+                              )
+                            }
                             className={`px-3 py-1 rounded text-xs font-medium ${
                               track.muted
                                 ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
@@ -395,9 +436,11 @@ export default function RemixStudio() {
                           >
                             {track.muted ? "Muted" : "Mute"}
                           </button>
-                          
+
                           <button
-                            onClick={() => updateTrackProperty(track.id, 'solo', !track.solo)}
+                            onClick={() =>
+                              updateTrackProperty(track.id, "solo", !track.solo)
+                            }
                             className={`px-3 py-1 rounded text-xs font-medium ${
                               track.solo
                                 ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
@@ -406,25 +449,31 @@ export default function RemixStudio() {
                           >
                             {track.solo ? "Solo" : "Solo"}
                           </button>
-                          
+
                           <input
                             type="range"
                             min="0"
                             max="100"
                             value={track.volume}
-                            onChange={(e) => updateTrackProperty(track.id, 'volume', Number(e.target.value))}
+                            onChange={(e) =>
+                              updateTrackProperty(
+                                track.id,
+                                "volume",
+                                Number(e.target.value)
+                              )
+                            }
                             className="w-16"
                           />
-                          
+
                           <button
                             onClick={() => removeTrackFromTimeline(track.id)}
                             className="p-1 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
                           >
-<XMarkIcon className="h-4 w-4" />
+                            <XMarkIcon className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
-                      
+
                       <div className="h-16 bg-gray-50 dark:bg-neutral-700 rounded flex items-end gap-0.5 px-2 overflow-hidden">
                         {track.stem.waveform.map((height, index) => (
                           <div
@@ -432,8 +481,8 @@ export default function RemixStudio() {
                             className="bg-purple-400 dark:bg-purple-500 rounded-t"
                             style={{
                               height: `${(height / 100) * 100}%`,
-                              width: '2px',
-                              minHeight: '2px'
+                              width: "2px",
+                              minHeight: "2px",
                             }}
                           />
                         ))}
@@ -454,10 +503,10 @@ export default function RemixStudio() {
               <SparklesIcon className="h-10 w-10 text-purple-600 dark:text-purple-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-Remix Created Successfully!
+              Remix Created Successfully!
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-Your remix has been minted as a new IP Asset on Story Protocol
+              Your remix has been minted as a new IP Asset on Story Protocol
             </p>
             <div className="space-y-3">
               <MainButton
@@ -466,7 +515,7 @@ Your remix has been minted as a new IP Asset on Story Protocol
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                 withParticles
               >
-<ChartBarIcon className="h-4 w-4" />
+                <ChartBarIcon className="h-4 w-4" />
                 View in Dashboard
               </MainButton>
               <MainButton
@@ -475,7 +524,7 @@ Your remix has been minted as a new IP Asset on Story Protocol
                 size="lg"
                 className="w-full"
               >
-<ArrowUpTrayIcon className="h-4 w-4" />
+                <ArrowUpTrayIcon className="h-4 w-4" />
                 Share Remix
               </MainButton>
             </div>

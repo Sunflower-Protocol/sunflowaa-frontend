@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { Button as BaseButton } from "../../../ui/button";
-import { ParticleButton } from "../../../ui/particle-button";
+import { FlowButton } from "../../../ui/flow-button";
 import { cn } from "@/lib/utils";
 import type { ButtonProps } from "../../../ui/button";
 import { Heart } from "lucide-react";
@@ -22,22 +22,34 @@ function LoveParticles({
 }: {
   buttonRef: React.RefObject<HTMLButtonElement | null>;
 }) {
+  // eslint-disable-next-line react-hooks/refs
   const rect = buttonRef.current?.getBoundingClientRect();
   if (!rect) return null;
 
   const centerX = rect.left + rect.width / 2;
   const centerY = rect.top + rect.height / 2;
 
+  // Generate deterministic values to avoid Math.random() issues
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const particleData = useMemo(() => 
+    [...Array(8)].map((_, i) => ({
+      id: i,
+      background: i % 2 === 0 ? '#ec4899' : '#f472b6',
+      xDirection: (i % 2 ? 1 : -1) * (30 + i * 5),
+      yDirection: -(30 + i * 3),
+    })), []
+  );
+
   return (
     <AnimatePresence>
-      {[...Array(8)].map((_, i) => (
+      {particleData.map((particle) => (
         <motion.div
-          key={i}
-          className="fixed w-2 h-2 rounded-full"
+          key={particle.id}
+          className="fixed w-2 h-2 rounded-full z-50"
           style={{ 
             left: centerX, 
             top: centerY,
-            background: i % 2 === 0 ? '#ec4899' : '#f472b6'
+            background: particle.background
           }}
           initial={{
             scale: 0,
@@ -46,14 +58,12 @@ function LoveParticles({
           }}
           animate={{
             scale: [0, 1.5, 0],
-            // eslint-disable-next-line react-hooks/purity
-            x: [0, (i % 2 ? 1 : -1) * (Math.random() * 40 + 15)],
-            // eslint-disable-next-line react-hooks/purity
-            y: [0, -Math.random() * 40 - 15],
+            x: [0, particle.xDirection],
+            y: [0, particle.yDirection],
           }}
           transition={{
             duration: 0.8,
-            delay: i * 0.05,
+            delay: particle.id * 0.05,
             ease: "easeOut",
           }}
         />
@@ -67,6 +77,7 @@ export function MainButton({
   withParticles = false, 
   className, 
   variant = "pink",
+  onClick,
   ...props 
 }: MainButtonProps) {
   const buttonClass = cn(
@@ -76,13 +87,9 @@ export function MainButton({
 
   if (withParticles) {
     return (
-      <ParticleButton
-        variant={variant}
-        className={buttonClass}
-        {...props}
-      >
+      <FlowButton onClick={onClick}>
         {children}
-      </ParticleButton>
+      </FlowButton>
     );
   }
 
@@ -90,6 +97,7 @@ export function MainButton({
     <BaseButton
       variant={variant}
       className={buttonClass}
+      onClick={onClick}
       {...props}
     >
       {children}

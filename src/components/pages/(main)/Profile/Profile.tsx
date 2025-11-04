@@ -113,6 +113,7 @@ export default function Profile() {
                       }
                       variant="outline"
                       size="sm"
+                      className="gap-2"
                     >
                       {isEditing ? (
                         <>Cancel</>
@@ -403,7 +404,7 @@ export default function Profile() {
                       <WalletIcon className="h-4 w-4" />
                       Connect Wallet
                     </MainButton>
-                    <MainButton size="sm" className="w-full gap-2" variant="outline">
+                    <MainButton size="sm" className="w-full gap-2" variant="outline" withParticles>
                       <Image src={usdcLogo} alt="USDC" width={16} height={16} className="h-4 w-4" />
                       Claim Royalties
                     </MainButton>

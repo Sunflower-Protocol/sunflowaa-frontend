@@ -297,7 +297,10 @@ export default function Music() {
                     <Icon className="h-10 w-10 text-gray-600 dark:text-gray-400" />
                   </div>
                   <button
-                    onClick={() => handlePlayPause(stem.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePlayPause(stem.id);
+                    }}
                     className="cursor-pointer absolute -bottom-2 -right-2 w-10 h-10 bg-gray-600/80 hover:bg-gray-700/90 text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105 backdrop-blur-sm"
                   >
                     {playingStem === stem.id ? (
@@ -356,7 +359,10 @@ export default function Music() {
                   />
 
                   <MainButton
-                    onClick={() => handleRemix(stem.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemix(stem.id);
+                    }}
                     size="sm"
                     className="flex-1"
                     withParticles
@@ -364,7 +370,10 @@ export default function Music() {
                     Use in Remix
                   </MainButton>
 
-                  <button className="cursor-pointer p-2 rounded-lg bg-gray-100/60 hover:bg-gray-100/80 dark:bg-neutral-700/60 dark:hover:bg-neutral-700/80 text-gray-600 dark:text-gray-400 transition-colors backdrop-blur-sm">
+                  <button 
+                    onClick={(e) => e.stopPropagation()}
+                    className="cursor-pointer p-2 rounded-lg bg-gray-100/60 hover:bg-gray-100/80 dark:bg-neutral-700/60 dark:hover:bg-neutral-700/80 text-gray-600 dark:text-gray-400 transition-colors backdrop-blur-sm"
+                  >
                     <EllipsisHorizontalIcon className="h-4 w-4" />
                   </button>
                 </div>
