@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../../../ui/sidebar";
-import { LayoutDashboard, UserCog, Settings, LogOut, Music, Coins, FileText } from "lucide-react";
+import { UserCog, Settings, LogOut, Music, FileText, Sliders } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -18,13 +18,6 @@ export default function MainSidebar() {
       ),
     },
     {
-      label: "Dashboard",
-      href: "/app/dashboard",
-      icon: (
-        <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
       label: "IP Registry",
       href: "/app/ip",
       icon: (
@@ -32,10 +25,10 @@ export default function MainSidebar() {
       ),
     },
     {
-      label: "Earnings",
-      href: "/app/earnings",
+      label: "Remix Studio",
+      href: "/app/remix-studio",
       icon: (
-        <Coins className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <Sliders className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
       ),
     },
     {
@@ -43,13 +36,6 @@ export default function MainSidebar() {
       href: "/app/profile",
       icon: (
         <UserCog className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
-      ),
-    },
-    {
-      label: "Settings",
-      href: "/app/settings",
-      icon: (
-        <Settings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
       ),
     },
   ];

@@ -35,7 +35,7 @@ export default function ResizableNavbar({
     { name: "About", link: "#about" },
   ],
   ctaText = "Launch App",
-  ctaHref = "#get-started",
+  ctaHref = "/app",
   className = "",
 }: ResizableNavbarProps) {
   const [isOpen, setIsOpen] = useState(false);

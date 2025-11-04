@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ResizableNavbar from "@/components/ResizableNavbar";
+import Link from "next/dist/client/link";
 
 export default function HeroSection() {
   return (
@@ -41,9 +42,11 @@ export default function HeroSection() {
               </span>
             </p>
 
-            <button className="bg-black cursor-pointer text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
-              Launch App
-            </button>
+            <Link href="/app">
+              <button className="bg-black cursor-pointer text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
+                Launch App
+              </button>
+            </Link>
           </div>
         </div>
       </div>

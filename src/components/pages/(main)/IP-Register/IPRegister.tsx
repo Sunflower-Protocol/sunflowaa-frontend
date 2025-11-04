@@ -60,13 +60,6 @@ export default function IPRegister() {
     }
   };
 
-  const handleTagRemove = (tag: string) => {
-    setFormData(prev => ({
-      ...prev,
-      tags: prev.tags.filter(t => t !== tag)
-    }));
-  };
-
   const generatePreviewMetadata = () => {
     return {
       title: formData.title,
@@ -82,6 +75,7 @@ export default function IPRegister() {
       },
       creator: formData.creatorWallet,
       coCreators: formData.coCreators,
+      // eslint-disable-next-line react-hooks/purity
       ipId: "ip_" + Math.random().toString(36).substr(2, 9),
       timestamp: new Date().toISOString()
     };
