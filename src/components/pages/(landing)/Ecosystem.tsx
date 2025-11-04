@@ -1,9 +1,9 @@
 "use client";
 
-import { Marquee } from "./ui/marquee";
+import { Marquee } from "@/components/ui/marquee";
 import Image from "next/image";
 import Lottie from "lottie-react";
-import rocketAnimation from "../../public/Assets/Animation/rocket-animation.json";
+import { rocketAnimation }  from "../../../../public/Assets/index";
 
 const partnerLogos = [
   {

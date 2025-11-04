@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import FlowingMenu from "./FlowingMenu";
+import FlowingMenu from "@/components/FlowingMenu";
 import { Play, Shuffle, DollarSign } from "lucide-react";
 import Image from "next/image";
 

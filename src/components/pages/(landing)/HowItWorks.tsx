@@ -1,23 +1,21 @@
 "use client";
 
 import Lottie from "lottie-react";
-import recordMusicAnimation from "../../public/Assets/Animation/record-music.json";
-import remixMusicAnimation from "../../public/Assets/Animation/logo-music.json";
-import earnMoneyAnimation from "../../public/Assets/Animation/earn-money.json";
-import { LiquidButton } from "./ui/liquid-glass-button";
+import { recordMusicAnimation, logoMusicAnimation, earnMoneyAnimation } from "../../../../public/Assets/index";
+import { LiquidButton } from "../../ui/liquid-glass-button";
 
 const steps = [
   {
     id: 1,
-    title: "Create & Register",
+    title: "Register your music as IP",
     description: "Record your music and register it as IP",
     animation: recordMusicAnimation,
   },
   {
     id: 2,
-    title: "Remix & Collaborate",
+    title: "Remix your music",
     description: "Transform tracks and collaborate with artists",
-    animation: remixMusicAnimation,
+    animation: logoMusicAnimation,
   },
   {
     id: 3,

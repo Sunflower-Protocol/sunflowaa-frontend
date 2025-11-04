@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ResizableNavbar from "./ResizableNavbar";
+import ResizableNavbar from "@/components/ResizableNavbar";
 
 export default function HeroSection() {
   return (

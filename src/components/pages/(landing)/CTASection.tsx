@@ -1,8 +1,8 @@
 "use client";
 
 import Lottie from "lottie-react";
-import logoMusicAnimation from "../../public/Assets/Animation/logo-music.json";
-import { CardContent } from "./ui/card";
+import { logoMusicAnimation } from "../../../../public/Assets/index";
+import { CardContent } from "@/components/ui/card";
 
 export default function CTASection() {
   return (
