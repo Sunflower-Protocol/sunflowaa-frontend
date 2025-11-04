@@ -13,6 +13,7 @@ export { default as monetizeLogo } from './Logo/monetize-logo.png';
 export { default as musicLogo } from './Logo/music-logo.png';
 export { default as remixLogo } from './Logo/remix-logo.png';
 export { default as sunflowaaLogo } from './Logo/sunflowaa.png';
+export { default as usdcLogo } from './Logo/usdc-logo.png';
 
 // Background exports
 export { default as backgroundHero } from './Background/Background-Hero.png';

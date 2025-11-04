@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { MainButton } from "../_components/Button";
-import { 
-  UserIcon, 
-  EnvelopeIcon, 
-  WalletIcon, 
-  PencilIcon, 
+import {
+  UserIcon,
+  WalletIcon,
+  PencilIcon,
   CameraIcon,
   MusicalNoteIcon,
   TrophyIcon,
@@ -18,11 +18,9 @@ import {
   GlobeAltIcon,
   ClipboardIcon,
   CheckIcon,
-  ArrowUpTrayIcon,
-  LockClosedIcon,
-  SparklesIcon,
-  HandThumbUpIcon
+  HandThumbUpIcon,
 } from "@heroicons/react/24/outline";
+import { usdcLogo } from "../../../../../public/Assets";
 
 interface UserProfile {
   username: string;
@@ -47,7 +45,7 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [copiedWallet, setCopiedWallet] = useState(false);
-  
+
   const [profileData, setProfileData] = useState<UserProfile>({
     username: "MusicCreator",
     email: "creator@sunflowaa.com",
@@ -62,9 +60,9 @@ export default function Profile() {
     stats: {
       totalTracks: 42,
       totalCollaborations: 18,
-      totalRoyalties: 1250.50,
-      ipAssets: 15
-    }
+      totalRoyalties: 1250.5,
+      ipAssets: 15,
+    },
   });
 
   const [editData, setEditData] = useState(profileData);
@@ -92,28 +90,27 @@ export default function Profile() {
       <div className="min-h-screen flex justify-center">
         <div className="w-full max-w-4xl mx-auto px-4 py-8">
           <div className="space-y-8">
-            {/* Header */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <UserIcon className="h-10 w-10 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile</h1>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                Profile
+              </h1>
               <p className="text-gray-600 dark:text-gray-400 mt-2">
-Manage your account and creative identity
+                Manage your account and creative identity
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Profile Card */}
               <div className="lg:col-span-2 space-y-6">
-                <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-blue-200 dark:border-blue-800 p-6">
+                <div className="bg-white/80 dark:bg-neutral-800/80 rounded-3xl border border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                       <UserIcon className="h-5 w-5" />
                       Profile Information
                     </h2>
                     <MainButton
-                      onClick={() => isEditing ? handleCancel() : setIsEditing(true)}
+                      onClick={() =>
+                        isEditing ? handleCancel() : setIsEditing(true)
+                      }
                       variant="outline"
                       size="sm"
                     >
@@ -129,14 +126,13 @@ Manage your account and creative identity
                   </div>
 
                   <div className="space-y-6">
-                    {/* Avatar Section */}
                     <div className="flex items-center gap-6">
                       <div className="relative">
-                        <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center">
-                          <MusicalNoteIcon className="h-12 w-12 text-blue-600 dark:text-blue-400" />
+                        <div className="w-24 h-24 bg-linear-to-br from-gray-100/60 to-gray-200/60 dark:from-neutral-700/60 dark:to-neutral-800/60 rounded-full flex items-center justify-center backdrop-blur-sm">
+                          <MusicalNoteIcon className="h-12 w-12 text-gray-600 dark:text-gray-400" />
                         </div>
                         {isEditing && (
-                          <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+                          <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-gray-600 text-white rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors shadow-lg">
                             <CameraIcon className="h-4 w-4" />
                           </button>
                         )}
@@ -151,7 +147,6 @@ Manage your account and creative identity
                       </div>
                     </div>
 
-                    {/* Form Fields */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -161,11 +156,16 @@ Manage your account and creative identity
                           <input
                             type="text"
                             value={editData.username}
-                            onChange={(e) => setEditData(prev => ({ ...prev, username: e.target.value }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            onChange={(e) =>
+                              setEditData((prev) => ({
+                                ...prev,
+                                username: e.target.value,
+                              }))
+                            }
+                            className="w-full px-4 py-2 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
                           />
                         ) : (
-                          <div className="px-4 py-2 bg-gray-50 dark:bg-neutral-700 rounded-lg text-gray-900 dark:text-white">
+                          <div className="px-4 py-3 bg-gray-50/60 dark:bg-neutral-700/60 rounded-2xl text-gray-900 dark:text-white backdrop-blur-sm">
                             {profileData.username}
                           </div>
                         )}
@@ -179,11 +179,16 @@ Manage your account and creative identity
                           <input
                             type="email"
                             value={editData.email}
-                            onChange={(e) => setEditData(prev => ({ ...prev, email: e.target.value }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            onChange={(e) =>
+                              setEditData((prev) => ({
+                                ...prev,
+                                email: e.target.value,
+                              }))
+                            }
+                            className="w-full px-4 py-2 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
                           />
                         ) : (
-                          <div className="px-4 py-2 bg-gray-50 dark:bg-neutral-700 rounded-lg text-gray-900 dark:text-white">
+                          <div className="px-4 py-3 bg-gray-50/60 dark:bg-neutral-700/60 rounded-2xl text-gray-900 dark:text-white backdrop-blur-sm">
                             {profileData.email}
                           </div>
                         )}
@@ -198,8 +203,13 @@ Manage your account and creative identity
                         <textarea
                           rows={4}
                           value={editData.bio}
-                          onChange={(e) => setEditData(prev => ({ ...prev, bio: e.target.value }))}
-                          className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          onChange={(e) =>
+                            setEditData((prev) => ({
+                              ...prev,
+                              bio: e.target.value,
+                            }))
+                          }
+                          className="w-full px-4 py-2 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
                           placeholder="Tell us about yourself..."
                         />
                       ) : (
@@ -219,11 +229,16 @@ Manage your account and creative identity
                           <input
                             type="text"
                             value={editData.location}
-                            onChange={(e) => setEditData(prev => ({ ...prev, location: e.target.value }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            onChange={(e) =>
+                              setEditData((prev) => ({
+                                ...prev,
+                                location: e.target.value,
+                              }))
+                            }
+                            className="w-full px-4 py-2 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
                           />
                         ) : (
-                          <div className="px-4 py-2 bg-gray-50 dark:bg-neutral-700 rounded-lg text-gray-900 dark:text-white">
+                          <div className="px-4 py-3 bg-gray-50/60 dark:bg-neutral-700/60 rounded-2xl text-gray-900 dark:text-white backdrop-blur-sm">
                             {profileData.location}
                           </div>
                         )}
@@ -238,11 +253,16 @@ Manage your account and creative identity
                           <input
                             type="url"
                             value={editData.website}
-                            onChange={(e) => setEditData(prev => ({ ...prev, website: e.target.value }))}
-                            className="w-full px-4 py-2 border border-gray-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            onChange={(e) =>
+                              setEditData((prev) => ({
+                                ...prev,
+                                website: e.target.value,
+                              }))
+                            }
+                            className="w-full px-4 py-2 border border-gray-200/40 dark:border-neutral-700/40 rounded-2xl bg-white/80 dark:bg-neutral-700/80 text-gray-900 dark:text-white focus:outline-none focus:border-gray-300/60 dark:focus:border-neutral-600/60 transition-colors backdrop-blur-md"
                           />
                         ) : (
-                          <div className="px-4 py-2 bg-gray-50 dark:bg-neutral-700 rounded-lg text-gray-900 dark:text-white">
+                          <div className="px-4 py-3 bg-gray-50/60 dark:bg-neutral-700/60 rounded-2xl text-gray-900 dark:text-white backdrop-blur-sm">
                             {profileData.website}
                           </div>
                         )}
@@ -256,7 +276,7 @@ Manage your account and creative identity
                           className="flex-1"
                           withParticles
                         >
-<ClipboardIcon className="h-4 w-4" />
+                          <ClipboardIcon className="h-4 w-4" />
                           Save Changes
                         </MainButton>
                         <MainButton
@@ -271,8 +291,7 @@ Manage your account and creative identity
                   </div>
                 </div>
 
-                {/* Wallet & Social */}
-                <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-green-200 dark:border-green-800 p-6">
+                <div className="bg-white/80 dark:bg-neutral-800/80 rounded-3xl border border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <WalletIcon className="h-5 w-5" />
                     Wallet & Social
@@ -284,14 +303,18 @@ Manage your account and creative identity
                         Wallet Address
                       </label>
                       <div className="flex items-center gap-2">
-                        <div className="flex-1 px-4 py-2 bg-gray-50 dark:bg-neutral-700 rounded-lg text-gray-900 dark:text-white font-mono text-sm">
+                        <div className="flex-1 px-4 py-3 bg-gray-50/60 dark:bg-neutral-700/60 rounded-2xl text-gray-900 dark:text-white font-mono text-sm backdrop-blur-sm">
                           {profileData.walletAddress}
                         </div>
                         <button
                           onClick={copyWalletAddress}
                           className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                         >
-                          {copiedWallet ? <CheckIcon className="h-4 w-4 text-green-600" /> : <ClipboardIcon className="h-4 w-4" />}
+                          {copiedWallet ? (
+                            <CheckIcon className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <ClipboardIcon className="h-4 w-4" />
+                          )}
                         </button>
                       </div>
                     </div>
@@ -321,66 +344,68 @@ Manage your account and creative identity
                 </div>
               </div>
 
-              {/* Stats Sidebar */}
               <div className="space-y-6">
-                <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-purple-200 dark:border-purple-800 p-6">
+                <div className="bg-white/80 dark:bg-neutral-800/80 rounded-3xl border border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <ChartBarIcon className="h-5 w-5" />
                     Stats
                   </h2>
 
                   <div className="space-y-4">
-                    <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-xl">
-                      <MusicalNoteIcon className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+                    <div className="text-center p-4 bg-gradient-to-br from-gray-50/60 to-gray-100/60 dark:from-neutral-800/40 dark:to-neutral-700/40 rounded-2xl backdrop-blur-sm">
+                      <MusicalNoteIcon className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {profileData.stats.totalTracks}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Total Tracks</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        Total Tracks
+                      </div>
                     </div>
 
-                    <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-xl">
-                      <TrophyIcon className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+                    <div className="text-center p-4 bg-gradient-to-br from-gray-50/60 to-gray-100/60 dark:from-neutral-800/40 dark:to-neutral-700/40 rounded-2xl backdrop-blur-sm">
+                      <TrophyIcon className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {profileData.stats.ipAssets}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">IP Assets</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        IP Assets
+                      </div>
                     </div>
 
-                    <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl">
-                      <UsersIcon className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+                    <div className="text-center p-4 bg-gradient-to-br from-gray-50/60 to-gray-100/60 dark:from-neutral-800/40 dark:to-neutral-700/40 rounded-2xl backdrop-blur-sm">
+                      <UsersIcon className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {profileData.stats.totalCollaborations}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Collaborations</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        Collaborations
+                      </div>
                     </div>
 
-                    <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-xl">
-                      <ChartBarIcon className="h-8 w-8 text-yellow-600 dark:text-yellow-400 mx-auto mb-2" />
+                    <div className="text-center p-4 bg-gradient-to-br from-gray-50/60 to-gray-100/60 dark:from-neutral-800/40 dark:to-neutral-700/40 rounded-2xl backdrop-blur-sm">
+                      <ChartBarIcon className="h-8 w-8 text-gray-600 dark:text-gray-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         ${profileData.stats.totalRoyalties}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Total Royalties</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        Total Royalties
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 p-6">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <CalendarIcon className="h-5 w-5" />
-                    Quick Actions
+                <div className="bg-white/80 dark:bg-neutral-800/80 rounded-3xl border border-gray-200/40 dark:border-neutral-700/40 p-6 backdrop-blur-md">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                    Your Royalties
                   </h3>
-                  <div className="space-y-3">
-                    <MainButton size="sm" className="w-full" variant="outline">
-<ArrowUpTrayIcon className="h-4 w-4" />
-                      Export Data
+                  <div className="space-y-4">
+                    <MainButton size="sm" className="w-full gap-2" withParticles>
+                      <WalletIcon className="h-4 w-4" />
+                      Connect Wallet
                     </MainButton>
-                    <MainButton size="sm" className="w-full" variant="outline">
-<LockClosedIcon className="h-4 w-4" />
-                      Privacy Settings
-                    </MainButton>
-                    <MainButton size="sm" className="w-full" variant="outline">
-<ChartBarIcon className="h-4 w-4" />
-                      Download Report
+                    <MainButton size="sm" className="w-full gap-2" variant="outline">
+                      <Image src={usdcLogo} alt="USDC" width={16} height={16} className="h-4 w-4" />
+                      Claim Royalties
                     </MainButton>
                   </div>
                 </div>
@@ -390,15 +415,14 @@ Manage your account and creative identity
         </div>
       </div>
 
-      {/* Success Modal */}
       {showSuccess && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-blue-200 dark:border-blue-800 p-8 max-w-md w-full text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckIcon className="h-10 w-10 text-blue-600 dark:text-blue-400" />
+          <div className="bg-white/90 dark:bg-neutral-800/90 rounded-3xl border border-gray-200/40 dark:border-neutral-700/40 p-8 max-w-md w-full text-center backdrop-blur-md">
+            <div className="w-20 h-20 bg-gradient-to-br from-gray-100/60 to-gray-200/60 dark:from-neutral-700/60 dark:to-neutral-800/60 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+              <CheckIcon className="h-10 w-10 text-gray-600 dark:text-gray-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-Profile Updated!
+              Profile Updated!
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Your profile information has been saved successfully.
@@ -409,7 +433,7 @@ Profile Updated!
               className="w-full"
               withParticles
             >
-<HandThumbUpIcon className="h-4 w-4" />
+              <HandThumbUpIcon className="h-4 w-4" />
               Got it!
             </MainButton>
           </div>

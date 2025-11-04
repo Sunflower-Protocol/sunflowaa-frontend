@@ -209,7 +209,6 @@ export default function Music() {
       </div>
 
       <div className="space-y-4">
-        {/* Search Bar */}
         <div className="relative">
           <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-800 dark:text-gray-300 z-10 pointer-events-none" />
           <input
@@ -221,7 +220,6 @@ export default function Music() {
           />
         </div>
 
-        {/* Stem Type Categories */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
           <button
             onClick={() => setFilter("all")}
@@ -257,7 +255,6 @@ export default function Music() {
           ))}
         </div>
 
-        {/* Additional Filters */}
         <div className="flex gap-4 overflow-x-auto pb-2">
           {[
             "trending",

@@ -156,7 +156,6 @@ export default function RemixStudio() {
 
   return (
     <main className="h-screen flex flex-col bg-gray-50 dark:bg-neutral-900">
-      {/* Header */}
       <div className="bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-neutral-700 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -197,7 +196,6 @@ export default function RemixStudio() {
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Stem Library Panel */}
         <div className="w-80 bg-white dark:bg-neutral-800 border-r border-gray-200 dark:border-neutral-700 flex flex-col">
           <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
@@ -205,7 +203,6 @@ export default function RemixStudio() {
               Stem Library
             </h2>
             
-            {/* Search & Filter */}
             <div className="space-y-3">
               <div className="relative">
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -247,7 +244,6 @@ export default function RemixStudio() {
             </div>
           </div>
 
-          {/* Stems List */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {filteredStems.map((stem) => {
               const stemType = STEM_TYPES.find(t => t.type === stem.type);
@@ -285,9 +281,7 @@ export default function RemixStudio() {
           </div>
         </div>
 
-        {/* Main Timeline Editor */}
         <div className="flex-1 flex flex-col">
-          {/* Audio Controls */}
           <div className="bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-neutral-700 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -363,7 +357,6 @@ export default function RemixStudio() {
             </div>
           </div>
 
-          {/* Timeline */}
           <div className="flex-1 overflow-auto p-4">
             <div className="space-y-4">
               {timelineTracks.length === 0 ? (
@@ -432,7 +425,6 @@ export default function RemixStudio() {
                         </div>
                       </div>
                       
-                      {/* Waveform visualization */}
                       <div className="h-16 bg-gray-50 dark:bg-neutral-700 rounded flex items-end gap-0.5 px-2 overflow-hidden">
                         {track.stem.waveform.map((height, index) => (
                           <div
