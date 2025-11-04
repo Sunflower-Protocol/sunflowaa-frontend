@@ -3,24 +3,26 @@
 import { useState } from "react";
 import { MainButton } from "../_components/Button";
 import { 
-  User, 
-  Mail, 
-  Wallet, 
-  Edit3, 
-  Camera,
-  Music,
-  Award,
-  TrendingUp,
-  Users,
-  Calendar,
-  MapPin,
-  Link as LinkIcon,
-  Twitter,
-  Instagram,
-  Globe,
-  Copy,
-  Check
-} from "lucide-react";
+  UserIcon, 
+  EnvelopeIcon, 
+  WalletIcon, 
+  PencilIcon, 
+  CameraIcon,
+  MusicalNoteIcon,
+  TrophyIcon,
+  ChartBarIcon,
+  UsersIcon,
+  CalendarIcon,
+  MapPinIcon,
+  LinkIcon,
+  GlobeAltIcon,
+  ClipboardIcon,
+  CheckIcon,
+  ArrowUpTrayIcon,
+  LockClosedIcon,
+  SparklesIcon,
+  HandThumbUpIcon
+} from "@heroicons/react/24/outline";
 
 interface UserProfile {
   username: string;
@@ -92,12 +94,12 @@ export default function Profile() {
           <div className="space-y-8">
             {/* Header */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
-                👤
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <UserIcon className="h-10 w-10 text-blue-600 dark:text-blue-400" />
               </div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Profile</h1>
               <p className="text-gray-600 dark:text-gray-400 mt-2">
-                Manage your account and creative identity ✨
+Manage your account and creative identity
               </p>
             </div>
 
@@ -107,7 +109,7 @@ export default function Profile() {
                 <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-blue-200 dark:border-blue-800 p-6">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                      <User className="h-5 w-5" />
+                      <UserIcon className="h-5 w-5" />
                       Profile Information
                     </h2>
                     <MainButton
@@ -119,7 +121,7 @@ export default function Profile() {
                         <>Cancel</>
                       ) : (
                         <>
-                          <Edit3 className="h-4 w-4" />
+                          <PencilIcon className="h-4 w-4" />
                           Edit
                         </>
                       )}
@@ -130,12 +132,12 @@ export default function Profile() {
                     {/* Avatar Section */}
                     <div className="flex items-center gap-6">
                       <div className="relative">
-                        <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center text-3xl">
-                          🎵
+                        <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center">
+                          <MusicalNoteIcon className="h-12 w-12 text-blue-600 dark:text-blue-400" />
                         </div>
                         {isEditing && (
                           <button className="absolute -bottom-2 -right-2 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
-                            <Camera className="h-4 w-4" />
+                            <CameraIcon className="h-4 w-4" />
                           </button>
                         )}
                       </div>
@@ -210,7 +212,7 @@ export default function Profile() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
-                          <MapPin className="h-4 w-4" />
+                          <MapPinIcon className="h-4 w-4" />
                           Location
                         </label>
                         {isEditing ? (
@@ -229,7 +231,7 @@ export default function Profile() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
-                          <Globe className="h-4 w-4" />
+                          <GlobeAltIcon className="h-4 w-4" />
                           Website
                         </label>
                         {isEditing ? (
@@ -254,7 +256,8 @@ export default function Profile() {
                           className="flex-1"
                           withParticles
                         >
-                          💾 Save Changes
+<ClipboardIcon className="h-4 w-4" />
+                          Save Changes
                         </MainButton>
                         <MainButton
                           onClick={handleCancel}
@@ -271,7 +274,7 @@ export default function Profile() {
                 {/* Wallet & Social */}
                 <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-green-200 dark:border-green-800 p-6">
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Wallet className="h-5 w-5" />
+                    <WalletIcon className="h-5 w-5" />
                     Wallet & Social
                   </h2>
 
@@ -288,7 +291,7 @@ export default function Profile() {
                           onClick={copyWalletAddress}
                           className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                         >
-                          {copiedWallet ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" />}
+                          {copiedWallet ? <CheckIcon className="h-4 w-4 text-green-600" /> : <ClipboardIcon className="h-4 w-4" />}
                         </button>
                       </div>
                     </div>
@@ -296,7 +299,7 @@ export default function Profile() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
-                          <Twitter className="h-4 w-4" />
+                          <LinkIcon className="h-4 w-4" />
                           Twitter
                         </label>
                         <div className="px-4 py-2 bg-gray-50 dark:bg-neutral-700 rounded-lg text-gray-900 dark:text-white">
@@ -306,7 +309,7 @@ export default function Profile() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
-                          <Instagram className="h-4 w-4" />
+                          <LinkIcon className="h-4 w-4" />
                           Instagram
                         </label>
                         <div className="px-4 py-2 bg-gray-50 dark:bg-neutral-700 rounded-lg text-gray-900 dark:text-white">
@@ -322,13 +325,13 @@ export default function Profile() {
               <div className="space-y-6">
                 <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-purple-200 dark:border-purple-800 p-6">
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5" />
+                    <ChartBarIcon className="h-5 w-5" />
                     Stats
                   </h2>
 
                   <div className="space-y-4">
                     <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-xl">
-                      <Music className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+                      <MusicalNoteIcon className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {profileData.stats.totalTracks}
                       </div>
@@ -336,7 +339,7 @@ export default function Profile() {
                     </div>
 
                     <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-xl">
-                      <Award className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+                      <TrophyIcon className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {profileData.stats.ipAssets}
                       </div>
@@ -344,7 +347,7 @@ export default function Profile() {
                     </div>
 
                     <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl">
-                      <Users className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+                      <UsersIcon className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         {profileData.stats.totalCollaborations}
                       </div>
@@ -352,7 +355,7 @@ export default function Profile() {
                     </div>
 
                     <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-xl">
-                      <TrendingUp className="h-8 w-8 text-yellow-600 dark:text-yellow-400 mx-auto mb-2" />
+                      <ChartBarIcon className="h-8 w-8 text-yellow-600 dark:text-yellow-400 mx-auto mb-2" />
                       <div className="text-2xl font-bold text-gray-900 dark:text-white">
                         ${profileData.stats.totalRoyalties}
                       </div>
@@ -363,18 +366,21 @@ export default function Profile() {
 
                 <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-gray-200 dark:border-gray-700 p-6">
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Calendar className="h-5 w-5" />
+                    <CalendarIcon className="h-5 w-5" />
                     Quick Actions
                   </h3>
                   <div className="space-y-3">
                     <MainButton size="sm" className="w-full" variant="outline">
-                      📤 Export Data
+<ArrowUpTrayIcon className="h-4 w-4" />
+                      Export Data
                     </MainButton>
                     <MainButton size="sm" className="w-full" variant="outline">
-                      🔒 Privacy Settings
+<LockClosedIcon className="h-4 w-4" />
+                      Privacy Settings
                     </MainButton>
                     <MainButton size="sm" className="w-full" variant="outline">
-                      📊 Download Report
+<ChartBarIcon className="h-4 w-4" />
+                      Download Report
                     </MainButton>
                   </div>
                 </div>
@@ -388,11 +394,11 @@ export default function Profile() {
       {showSuccess && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-blue-200 dark:border-blue-800 p-8 max-w-md w-full text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
-              ✅
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckIcon className="h-10 w-10 text-blue-600 dark:text-blue-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-              Profile Updated! ✨
+Profile Updated!
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               Your profile information has been saved successfully.
@@ -403,7 +409,8 @@ export default function Profile() {
               className="w-full"
               withParticles
             >
-              👍 Got it!
+<HandThumbUpIcon className="h-4 w-4" />
+              Got it!
             </MainButton>
           </div>
         </div>

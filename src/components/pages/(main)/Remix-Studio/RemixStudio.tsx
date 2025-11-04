@@ -2,30 +2,26 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MainButton } from "../_components/Button";
+import { Loader } from "lucide-react";
 import {
-  Play,
-  Pause,
-  Square,
-  Volume2,
-  RotateCcw,
-  Loader,
-  Search,
-  Filter,
-  Music,
-  Mic,
-  Drum,
-  Music4,
-  Zap,
-  Download,
-  Upload,
-  Scissors,
-  SkipBack,
-  SkipForward,
-  AlignCenter,
-  Eye,
-  DollarSign,
-  Users
-} from "lucide-react";
+  PlayIcon,
+  PauseIcon,
+  StopIcon,
+  SpeakerWaveIcon,
+  ArrowPathIcon,
+  MagnifyingGlassIcon,
+  MusicalNoteIcon,
+  MicrophoneIcon,
+  CurrencyDollarIcon,
+  UsersIcon,
+  BoltIcon,
+  AdjustmentsHorizontalIcon,
+  SparklesIcon,
+  XMarkIcon,
+  ArrowUpTrayIcon,
+  ChartBarIcon,
+  RocketLaunchIcon
+} from "@heroicons/react/24/outline";
 
 interface Stem {
   id: string;
@@ -54,11 +50,11 @@ interface TimelineTrack {
 }
 
 const STEM_TYPES = [
-  { type: "vocals", icon: Mic, color: "pink" },
-  { type: "drums", icon: Drum, color: "red" },
-  { type: "bass", icon: Music, color: "blue" },
-  { type: "synth", icon: Music4, color: "purple" },
-  { type: "fx", icon: Zap, color: "green" }
+  { type: "vocals", icon: MicrophoneIcon, color: "pink" },
+  { type: "drums", icon: MusicalNoteIcon, color: "red" },
+  { type: "bass", icon: MusicalNoteIcon, color: "blue" },
+  { type: "synth", icon: MusicalNoteIcon, color: "purple" },
+  { type: "fx", icon: BoltIcon, color: "green" }
 ] as const;
 
 const MOCK_STEMS: Stem[] = [
@@ -130,6 +126,7 @@ export default function RemixStudio() {
 
   const addStemToTimeline = (stem: Stem) => {
     const newTrack: TimelineTrack = {
+      // eslint-disable-next-line react-hooks/purity
       id: `track_${Date.now()}`,
       stem,
       startTime: 0,
@@ -166,8 +163,8 @@ export default function RemixStudio() {
       <div className="bg-white dark:bg-neutral-800 border-b border-gray-200 dark:border-neutral-700 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center text-xl">
-              🎛️
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center">
+              <AdjustmentsHorizontalIcon className="h-6 w-6 text-purple-600 dark:text-purple-400" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900 dark:text-white">Remix Studio</h1>
@@ -177,7 +174,7 @@ export default function RemixStudio() {
           
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-3 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full text-sm">
-              <DollarSign className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+              <CurrencyDollarIcon className="h-4 w-4 text-purple-600 dark:text-purple-400" />
               <span className="text-purple-700 dark:text-purple-300">Total Royalty: {totalRoyalty}%</span>
             </div>
             <MainButton
@@ -193,7 +190,8 @@ export default function RemixStudio() {
                 </>
               ) : (
                 <>
-                  ✨ Mint as Remix
+<SparklesIcon className="h-4 w-4" />
+                  Mint as Remix
                 </>
               )}
             </MainButton>
@@ -206,14 +204,14 @@ export default function RemixStudio() {
         <div className="w-80 bg-white dark:bg-neutral-800 border-r border-gray-200 dark:border-neutral-700 flex flex-col">
           <div className="p-4 border-b border-gray-200 dark:border-neutral-700">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-              <Music className="h-5 w-5" />
+              <MusicalNoteIcon className="h-5 w-5" />
               Stem Library
             </h2>
             
             {/* Search & Filter */}
             <div className="space-y-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search stems..."
@@ -256,7 +254,7 @@ export default function RemixStudio() {
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {filteredStems.map((stem) => {
               const stemType = STEM_TYPES.find(t => t.type === stem.type);
-              const Icon = stemType?.icon || Music;
+              const Icon = stemType?.icon || MusicalNoteIcon;
               
               return (
                 <div
@@ -301,14 +299,14 @@ export default function RemixStudio() {
                     onClick={() => setIsPlaying(!isPlaying)}
                     className="w-10 h-10 bg-purple-600 hover:bg-purple-700 text-white rounded-full flex items-center justify-center transition-colors"
                   >
-                    {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 ml-0.5" />}
+                    {isPlaying ? <PauseIcon className="h-5 w-5" /> : <PlayIcon className="h-5 w-5 ml-0.5" />}
                   </button>
                   
                   <button
                     onClick={() => setCurrentTime(0)}
                     className="w-8 h-8 bg-gray-200 dark:bg-neutral-700 hover:bg-gray-300 dark:hover:bg-neutral-600 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center transition-colors"
                   >
-                    <Square className="h-4 w-4" />
+                    <StopIcon className="h-4 w-4" />
                   </button>
                   
                   <button
@@ -325,7 +323,7 @@ export default function RemixStudio() {
 
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2">
-                    <Volume2 className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                    <SpeakerWaveIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
                     <input
                       type="range"
                       min="0"
@@ -357,7 +355,7 @@ export default function RemixStudio() {
                         : "bg-gray-100 text-gray-600 dark:bg-neutral-700 dark:text-gray-400"
                     }`}
                   >
-                    <RotateCcw className="h-4 w-4" />
+                    <ArrowPathIcon className="h-4 w-4" />
                   </button>
                 </div>
               </div>
@@ -373,14 +371,14 @@ export default function RemixStudio() {
             <div className="space-y-4">
               {timelineTracks.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-gray-200 dark:bg-neutral-700 rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
-                    🎵
+                  <div className="w-16 h-16 bg-gray-200 dark:bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MusicalNoteIcon className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                   </div>
                   <p className="text-gray-600 dark:text-gray-400">Drag stems from the library to start creating your remix</p>
                 </div>
               ) : (
                 timelineTracks.map((track) => {
-                  const Icon = STEM_TYPES.find(t => t.type === track.stem.type)?.icon || Music;
+                  const Icon = STEM_TYPES.find(t => t.type === track.stem.type)?.icon || MusicalNoteIcon;
                   
                   return (
                     <div key={track.id} className="bg-white dark:bg-neutral-800 rounded-lg border border-gray-200 dark:border-neutral-700 p-4">
@@ -432,7 +430,7 @@ export default function RemixStudio() {
                             onClick={() => removeTrackFromTimeline(track.id)}
                             className="p-1 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
                           >
-                            ✕
+<XMarkIcon className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
@@ -464,14 +462,14 @@ export default function RemixStudio() {
       {showPreview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-purple-200 dark:border-purple-800 p-8 max-w-md w-full text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
-              🎉
+            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center mx-auto mb-6">
+              <SparklesIcon className="h-10 w-10 text-purple-600 dark:text-purple-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-              Remix Created Successfully! ✨
+Remix Created Successfully!
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Your remix has been minted as a new IP Asset on Story Protocol 🚀
+Your remix has been minted as a new IP Asset on Story Protocol
             </p>
             <div className="space-y-3">
               <MainButton
@@ -480,7 +478,8 @@ export default function RemixStudio() {
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                 withParticles
               >
-                🎵 View in Dashboard
+<ChartBarIcon className="h-4 w-4" />
+                View in Dashboard
               </MainButton>
               <MainButton
                 onClick={() => setShowPreview(false)}
@@ -488,7 +487,8 @@ export default function RemixStudio() {
                 size="lg"
                 className="w-full"
               >
-                📤 Share Remix
+<ArrowUpTrayIcon className="h-4 w-4" />
+                Share Remix
               </MainButton>
             </div>
           </div>

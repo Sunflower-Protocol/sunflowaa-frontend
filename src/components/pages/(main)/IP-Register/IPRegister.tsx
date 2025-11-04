@@ -1,7 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, FileMusic, Shield, Users, Eye, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
+import { 
+  ShieldCheckIcon,
+  ArrowUpTrayIcon,
+  MusicalNoteIcon,
+  MicrophoneIcon,
+  PencilIcon,
+  ClipboardDocumentListIcon,
+  ScaleIcon,
+  BanknotesIcon,
+  ArrowPathIcon,
+  UserIcon,
+  WalletIcon,
+  EyeIcon,
+  RocketLaunchIcon,
+  SparklesIcon,
+  ChartBarIcon,
+  CheckIcon,
+  XMarkIcon
+} from "@heroicons/react/24/outline";
 import { MainButton } from "../_components/Button";
 
 interface FormData {
@@ -51,14 +70,6 @@ export default function IPRegister() {
     }
   };
 
-  const handleTagAdd = (tag: string) => {
-    if (tag && !formData.tags.includes(tag)) {
-      setFormData(prev => ({
-        ...prev,
-        tags: [...prev.tags, tag]
-      }));
-    }
-  };
 
   const generatePreviewMetadata = () => {
     return {
@@ -96,9 +107,6 @@ export default function IPRegister() {
         <div className="w-full max-w-2xl mx-auto px-4 py-8">
           <div className="space-y-8">
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
-                🛡️
-              </div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">IP Register</h1>
               <p className="text-gray-600 dark:text-gray-400 mt-2">
                 Register your music as an IP Asset on Story Protocol ✨
@@ -108,20 +116,27 @@ export default function IPRegister() {
             <div className="space-y-6">
               <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-pink-200 dark:border-pink-800 p-6">
                 <div className="flex items-center justify-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center text-xl">
-                    📤
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-full flex items-center justify-center">
+                    <ArrowUpTrayIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Upload & Metadata</h2>
                 </div>
 
                 <div className="space-y-4">
                   <div className="border-2 border-dashed border-pink-300 dark:border-pink-700 rounded-2xl p-8 text-center bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20 hover:border-pink-400 transition-colors group">
-                    <div className="w-16 h-16 bg-gradient-to-br from-pink-200 to-pink-300 dark:from-pink-800 dark:to-pink-700 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform">
-                      🎵
+                    <div className="w-16 h-16 bg-gradient-to-br from-pink-200 to-pink-300 dark:from-pink-800 dark:to-pink-700 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <MusicalNoteIcon className="h-8 w-8 text-pink-700 dark:text-pink-300" />
                     </div>
                     <label className="cursor-pointer">
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {formData.audioFile ? `✅ ${formData.audioFile.name}` : "Drop your music here or click to browse"}
+{formData.audioFile ? (
+                          <div className="flex items-center justify-center gap-2">
+                            <CheckIcon className="h-4 w-4 text-green-600" />
+                            {formData.audioFile.name}
+                          </div>
+                        ) : (
+                          "Drop your music here or click to browse"
+                        )}
                       </span>
                       <input
                         type="file"
@@ -134,7 +149,9 @@ export default function IPRegister() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg">🎼</div>
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <MusicalNoteIcon className="h-5 w-5 text-gray-500" />
+                  </div>
                   <input
                     type="text"
                     placeholder="Title"
@@ -144,7 +161,9 @@ export default function IPRegister() {
                   />
                 </div>
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg">🎭</div>
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <MicrophoneIcon className="h-5 w-5 text-gray-500" />
+                  </div>
                   <input
                     type="text"
                     placeholder="Genre"
@@ -156,7 +175,9 @@ export default function IPRegister() {
               </div>
 
               <div className="relative">
-                <div className="absolute left-3 top-3 text-lg">📝</div>
+                <div className="absolute left-3 top-3">
+                  <PencilIcon className="h-5 w-5 text-gray-500" />
+                </div>
                 <textarea
                   placeholder="Description"
                   value={formData.description}
@@ -168,7 +189,9 @@ export default function IPRegister() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg">🥁</div>
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <MusicalNoteIcon className="h-5 w-5 text-gray-500" />
+                  </div>
                   <input
                     type="text"
                     placeholder="BPM"
@@ -178,7 +201,9 @@ export default function IPRegister() {
                   />
                 </div>
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg">🎹</div>
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <MusicalNoteIcon className="h-5 w-5 text-gray-500" />
+                  </div>
                   <input
                     type="text"
                     placeholder="Key"
@@ -193,15 +218,17 @@ export default function IPRegister() {
 
           <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-pink-200 dark:border-pink-800 p-6">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800 rounded-full flex items-center justify-center text-xl">
-                🛡️
+              <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800 rounded-full flex items-center justify-center">
+                <ShieldCheckIcon className="h-6 w-6 text-green-600 dark:text-green-400" />
               </div>
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">License Setup</h2>
             </div>
 
             <div className="space-y-6">
               <div className="relative">
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg">⚖️</div>
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  <ScaleIcon className="h-5 w-5 text-gray-500" />
+                </div>
                 <select
                   value={formData.licenseType}
                   onChange={(e) => setFormData(prev => ({ ...prev, licenseType: e.target.value }))}
@@ -216,7 +243,8 @@ export default function IPRegister() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center justify-center gap-2">
-                    💰 Royalty Percentage
+<BanknotesIcon className="h-4 w-4" />
+                    Royalty Percentage
                   </label>
                   <div className="bg-gradient-to-r from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800 rounded-xl p-4">
                     <input
@@ -233,7 +261,8 @@ export default function IPRegister() {
 
                 <div className="text-center">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex items-center justify-center gap-2">
-                    🔄 Allow Derivatives
+<ArrowPathIcon className="h-4 w-4" />
+                    Allow Derivatives
                   </label>
                   <div className="bg-gradient-to-r from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-xl p-4">
                     <label className="flex items-center justify-center gap-3 cursor-pointer">
@@ -244,7 +273,17 @@ export default function IPRegister() {
                         className="w-5 h-5 accent-purple-500 rounded"
                       />
                       <span className="text-lg font-semibold text-purple-600">
-                        {formData.allowDerivatives ? "✅ Yes" : "❌ No"}
+{formData.allowDerivatives ? (
+                          <div className="flex items-center gap-1">
+                            <CheckIcon className="h-4 w-4" />
+                            Yes
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-1">
+                            <XMarkIcon className="h-4 w-4" />
+                            No
+                          </div>
+                        )}
                       </span>
                     </label>
                   </div>
@@ -255,15 +294,17 @@ export default function IPRegister() {
 
           <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-pink-200 dark:border-pink-800 p-6">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center text-xl">
-                👤
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-full flex items-center justify-center">
+                <UserIcon className="h-6 w-6 text-purple-600 dark:text-purple-400" />
               </div>
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Ownership & Attribution</h2>
             </div>
 
             <div className="space-y-4">
               <div className="relative">
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-lg">👛</div>
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  <WalletIcon className="h-5 w-5 text-gray-500" />
+                </div>
                 <input
                   type="text"
                   placeholder="Creator Wallet Address (0x...)"
@@ -282,7 +323,8 @@ export default function IPRegister() {
               size="lg"
               className="flex items-center justify-center gap-2"
             >
-              👀 Preview Metadata
+<EyeIcon className="h-4 w-4" />
+              Preview Metadata
             </MainButton>
 
             <MainButton
@@ -299,7 +341,8 @@ export default function IPRegister() {
                 </>
               ) : (
                 <>
-                  🚀 Register to Story Protocol
+<RocketLaunchIcon className="h-4 w-4" />
+                  Register to Story Protocol
                 </>
               )}
             </MainButton>
@@ -308,7 +351,8 @@ export default function IPRegister() {
             {showPreview && (
               <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-pink-200 dark:border-pink-800 p-6">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                  📋 Metadata Preview
+<ClipboardDocumentListIcon className="h-5 w-5" />
+                  Metadata Preview
                 </h3>
                 <div className="bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20 rounded-xl p-4">
                   <pre className="text-xs text-gray-600 dark:text-gray-400 overflow-auto max-h-96">
@@ -325,8 +369,8 @@ export default function IPRegister() {
       {showSuccess && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-pink-200 dark:border-pink-800 p-8 max-w-md w-full text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
-              🎉
+            <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800 rounded-full flex items-center justify-center mx-auto mb-6">
+              <SparklesIcon className="h-10 w-10 text-pink-600 dark:text-pink-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
               Your music is now an IP Asset! ✨
@@ -341,7 +385,8 @@ export default function IPRegister() {
                 className="w-full"
                 withParticles
               >
-                🎵 Add to Remix Library
+<MusicalNoteIcon className="h-4 w-4" />
+                Add to Remix Library
               </MainButton>
               <MainButton
                 onClick={() => setShowSuccess(false)}
@@ -349,7 +394,8 @@ export default function IPRegister() {
                 size="lg"
                 className="w-full"
               >
-                📊 View in Dashboard
+<ChartBarIcon className="h-4 w-4" />
+                View in Dashboard
               </MainButton>
             </div>
           </div>

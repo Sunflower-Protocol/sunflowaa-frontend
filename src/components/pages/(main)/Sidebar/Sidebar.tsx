@@ -1,46 +1,70 @@
 "use client";
 
 import { useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "../../../ui/sidebar";
-import { UserCog, Settings, LogOut, Music, FileText, Sliders } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Sidebar, SidebarBody, SidebarLink, useSidebar } from "../../../ui/sidebar";
+import { 
+  MusicalNoteIcon,
+  DocumentTextIcon,
+  AdjustmentsHorizontalIcon,
+  UserIcon,
+  ArrowRightOnRectangleIcon
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { sunflowaaLogo } from "../../../../../public/Assets";
 
 export default function MainSidebar() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
   const links = [
     {
       label: "Music Library",
       href: "/app/music",
       icon: (
-        <Music className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <MusicalNoteIcon className={`h-5 w-5 shrink-0 ${
+          pathname === "/app/music" || pathname === "/app"
+            ? "text-pink-600 dark:text-pink-400" 
+            : "text-neutral-700 dark:text-neutral-200"
+        }`} />
       ),
     },
     {
       label: "IP Registry",
       href: "/app/ip",
       icon: (
-        <FileText className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <DocumentTextIcon className={`h-5 w-5 shrink-0 ${
+          pathname === "/app/ip" 
+            ? "text-pink-600 dark:text-pink-400" 
+            : "text-neutral-700 dark:text-neutral-200"
+        }`} />
       ),
     },
     {
       label: "Remix Studio",
       href: "/app/remix-studio",
       icon: (
-        <Sliders className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <AdjustmentsHorizontalIcon className={`h-5 w-5 shrink-0 ${
+          pathname === "/app/remix-studio" 
+            ? "text-pink-600 dark:text-pink-400" 
+            : "text-neutral-700 dark:text-neutral-200"
+        }`} />
       ),
     },
     {
       label: "Profile",
       href: "/app/profile",
       icon: (
-        <UserCog className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+        <UserIcon className={`h-5 w-5 shrink-0 ${
+          pathname === "/app/profile" 
+            ? "text-pink-600 dark:text-pink-400" 
+            : "text-neutral-700 dark:text-neutral-200"
+        }`} />
       ),
     },
   ];
-
-  const [open, setOpen] = useState(false);
 
   return (
     <Sidebar open={open} setOpen={setOpen}>
@@ -49,7 +73,7 @@ export default function MainSidebar() {
           {open ? <Logo /> : <LogoIcon />}
           <div className="mt-8 flex flex-col gap-2">
             {links.map((link, idx) => (
-              <SidebarLink key={idx} link={link} />
+              <CustomSidebarLink key={idx} link={link} pathname={pathname} />
             ))}
           </div>
         </div>
@@ -59,13 +83,50 @@ export default function MainSidebar() {
               label: "Logout",
               href: "/logout",
               icon: (
-                <LogOut className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
+                <ArrowRightOnRectangleIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 shrink-0" />
               ),
             }}
           />
         </div>
       </SidebarBody>
     </Sidebar>
+  );
+}
+
+function CustomSidebarLink({ 
+  link, 
+  pathname 
+}: { 
+  link: { label: string; href: string; icon: React.ReactNode }; 
+  pathname: string;
+}) {
+  const { open, animate } = useSidebar();
+  const isActive = pathname === link.href || (link.href === "/app/music" && pathname === "/app");
+  
+  return (
+    <Link
+      href={link.href}
+      className={`flex items-center justify-start gap-2 group/sidebar py-2 px-2 rounded-lg transition-all duration-200 ${
+        isActive 
+          ? "bg-pink-100 dark:bg-pink-900/20" 
+          : "hover:bg-gray-100 dark:hover:bg-neutral-700"
+      }`}
+    >
+      {link.icon}
+      <motion.span
+        animate={{
+          display: animate ? (open ? "inline-block" : "none") : "inline-block",
+          opacity: animate ? (open ? 1 : 0) : 1,
+        }}
+        className={`text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0 ${
+          isActive 
+            ? "text-pink-600 dark:text-pink-400 font-medium" 
+            : "text-neutral-700 dark:text-neutral-200"
+        }`}
+      >
+        {link.label}
+      </motion.span>
+    </Link>
   );
 }
 

@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Play, Pause, MoreHorizontal, Music2, Shuffle } from "lucide-react";
+import { 
+  PlayIcon,
+  PauseIcon,
+  EllipsisHorizontalIcon,
+  MusicalNoteIcon,
+  ArrowsRightLeftIcon
+} from "@heroicons/react/24/outline";
 import { MainButton, LoveButton } from "../_components/Button";
 
 interface Track {
@@ -110,7 +116,7 @@ export default function Music() {
             size="lg" 
             className="flex items-center gap-2"
           >
-            <Shuffle className="h-4 w-4" />
+            <ArrowsRightLeftIcon className="h-4 w-4" />
             Shuffle Play
           </MainButton>
         </div>
@@ -148,9 +154,9 @@ export default function Music() {
                   className="absolute -bottom-2 -right-2 w-10 h-10 bg-pink-500 hover:bg-pink-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105"
                 >
                   {playingTrack === track.id ? (
-                    <Pause className="h-4 w-4" />
+                    <PauseIcon className="h-4 w-4" />
                   ) : (
-                    <Play className="h-4 w-4 ml-0.5" />
+                    <PlayIcon className="h-4 w-4 ml-0.5" />
                   )}
                 </button>
               </div>
@@ -173,11 +179,11 @@ export default function Music() {
 
                 <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
                   <div className="flex items-center gap-1">
-                    <Play className="h-3 w-3" />
+                    <PlayIcon className="h-3 w-3" />
                     {track.plays.toLocaleString()}
                   </div>
                   <div className="flex items-center gap-1">
-                    <Music2 className="h-3 w-3" />
+                    <MusicalNoteIcon className="h-3 w-3" />
                     {track.remixes} remixes
                   </div>
                 </div>
@@ -199,7 +205,7 @@ export default function Music() {
                 </MainButton>
 
                 <button className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors">
-                  <MoreHorizontal className="h-4 w-4" />
+                  <EllipsisHorizontalIcon className="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -209,7 +215,7 @@ export default function Music() {
 
       {filteredTracks.length === 0 && (
         <div className="text-center py-12">
-          <Music2 className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+          <MusicalNoteIcon className="h-16 w-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-500 mb-2">No tracks found</h3>
           <p className="text-gray-400">Try adjusting your filter or upload some music</p>
         </div>
@@ -219,7 +225,7 @@ export default function Music() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800 rounded-full flex items-center justify-center">
-              <Music2 className="h-6 w-6 text-pink-600" />
+              <MusicalNoteIcon className="h-6 w-6 text-pink-600" />
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 dark:text-white">
