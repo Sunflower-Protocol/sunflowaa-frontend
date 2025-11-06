@@ -14,6 +14,7 @@ export { default as musicLogo } from './Logo/music-logo.png';
 export { default as remixLogo } from './Logo/remix-logo.png';
 export { default as sunflowaaLogo } from './Logo/sunflowaa.png';
 export { default as usdcLogo } from './Logo/usdc-logo.png';
+export { default as penguLogo } from './Logo/pengu-logo.jpeg';
 
 // Background exports
 export { default as backgroundHero } from './Background/Background-Hero.png';

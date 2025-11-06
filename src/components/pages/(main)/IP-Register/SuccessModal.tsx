@@ -83,15 +83,6 @@ export function SuccessModal({ isVisible, onClose }: SuccessModalProps) {
                 <MusicalNoteIcon className="h-4 w-4" />
                 Add to Remix Library
               </MainButton>
-              <MainButton
-                onClick={onClose}
-                variant="pinkOutline"
-                size="lg"
-                className="w-full gap-2"
-              >
-                <ChartBarIcon className="h-4 w-4" />
-                View in Dashboard
-              </MainButton>
             </motion.div>
           </motion.div>
         </motion.div>

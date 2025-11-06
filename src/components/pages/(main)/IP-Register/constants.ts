@@ -12,6 +12,7 @@ export const DEFAULT_FORM_DATA: FormData = {
   licenseType: "open-remix",
   royaltyPercentage: 10,
   allowDerivatives: true,
+  creatorName: "",
   creatorWallet: "",
   coCreators: [],
 };

@@ -7,6 +7,7 @@ import { StemCard } from "./StemCard";
 import { CallToAction } from "./CallToAction";
 import { EmptyState } from "./EmptyState";
 import { MOCK_STEMS } from "./constants";
+import { WalletConnect } from "../../../WalletConnect";
 
 export default function Music() {
   const [playingStem, setPlayingStem] = useState<string | null>(null);
@@ -48,6 +49,9 @@ export default function Music() {
           <p className="text-gray-600 dark:text-gray-400 mt-2">
             Discover and explore individual music components for your remixes
           </p>
+        </div>
+        <div className="flex-shrink-0">
+          <WalletConnect />
         </div>
       </div>
 

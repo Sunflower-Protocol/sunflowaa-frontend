@@ -10,8 +10,9 @@ export interface FormData {
   licenseType: string;
   royaltyPercentage: number;
   allowDerivatives: boolean;
+  creatorName: string;
   creatorWallet: string;
-  coCreators: Array<{ wallet: string; percentage: number }>;
+  coCreators: Array<{ name: string; wallet: string; percentage: number }>;
 }
 
 export interface LicenseOption {

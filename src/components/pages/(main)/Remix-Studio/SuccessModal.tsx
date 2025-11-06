@@ -26,15 +26,6 @@ export function SuccessModal({ isVisible, onClose }: SuccessModalProps) {
         <div className="space-y-3">
           <MainButton
             onClick={onClose}
-            size="lg"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-            withParticles
-          >
-            <ChartBarIcon className="h-4 w-4" />
-            View in Dashboard
-          </MainButton>
-          <MainButton
-            onClick={onClose}
             variant="outline"
             size="lg"
             className="w-full"
